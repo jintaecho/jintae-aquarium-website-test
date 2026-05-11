@@ -51,6 +51,31 @@
         .mobile-menu {
             transition: all 0.4s ease;
         }
+
+        .image-card {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.image-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.image-card img {
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+}
+
+/* Subtle floating animation */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+}
+
+.image-card:hover img {
+    animation: float 4s ease-in-out infinite;
+}
     </style>
 </head>
 <body class="bg-zinc-950 text-white overflow-x-hidden">
@@ -178,19 +203,73 @@
 </section>
 
     <!-- Mission -->
-    <section id="mission" class="py-24 bg-black">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <div class="max-w-md mx-auto">
-                <h2 class="heading-font text-5xl md:text-6xl font-light leading-tight">
-                    Our technology should let anyone own an aquarium as though it is a beautiful painting on the wall.
-                </h2>
-                <p class="mt-10 text-lg text-white/70">
-                    No weekly water changes. No filter cleaning. No worrying about fish health.<br>
-                    Just pure enjoyment of nature’s serenity in your home — every single day.
-                </p>
+<section id="mission" class="py-24 bg-black relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Images -->
+            <div class="lg:col-span-3 space-y-6">
+                <div class="image-card group">
+                    <img src="123123.png" 
+                         alt="Crystal clear aquarium" 
+                         class="w-full h-[280px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105">
+                </div>
+                <div class="image-card group">
+                    <img src="20150131_190906.jpg" 
+                         alt="Colorful fish" 
+                         class="w-full h-[220px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-150">
+                </div>
+                <div class="image-card group">
+                    <img src="IMG_2317.jpeg" 
+                         alt="Modern aquarium interior" 
+                         class="w-full h-[260px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-300">
+                </div>
+                <div class="image-card group">
+                    <img src="P1040475.JPG" 
+                         alt="Peaceful underwater scene" 
+                         class="w-full h-[240px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-500">
+                </div>
+            </div>
+
+            <!-- Center Text -->
+            <div class="lg:col-span-6 text-center">
+                <div class="max-w-2xl mx-auto">
+                    <h2 class="heading-font text-5xl md:text-6xl font-light leading-tight tracking-tight">
+                        Our technology should let anyone own an aquarium as though it is a beautiful painting on the wall.
+                    </h2>
+                    <p class="mt-10 text-lg md:text-xl text-white/70 leading-relaxed">
+                        No weekly water changes. No filter cleaning. No worrying about fish health.<br>
+                        Just pure enjoyment of nature’s serenity in your home — every single day.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right Images -->
+            <div class="lg:col-span-3 space-y-6">
+                <div class="image-card group">
+                    <img src="IMG_3918.jpeg" 
+                         alt="Vibrant coral reef aquarium" 
+                         class="w-full h-[250px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105">
+                </div>
+                <div class="image-card group">
+                    <img src="P1070133.JPG" 
+                         alt="Elegant home aquarium" 
+                         class="w-full h-[290px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-200">
+                </div>
+                <div class="image-card group">
+                    <img src="IMG_2323.jpeg" 
+                         alt="Serene fish swimming" 
+                         class="w-full h-[230px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-400">
+                </div>
+                <div class="image-card group">
+                    <img src="20150131_190858.jpg" 
+                         alt="Luxury automated aquarium" 
+                         class="w-full h-[270px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-600">
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Footer -->
     <footer class="bg-black py-16 border-t border-white/10">
@@ -254,6 +333,26 @@
                 }
             });
         });
+
+     
+// Scroll animation for mission images
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => {
+                entry.target.classList.add('visible');
+            }, index * 120); // Staggered animation
+        }
+    });
+}, {
+    threshold: 0.2,
+    rootMargin: "-50px"
+});
+
+document.querySelectorAll('.image-card').forEach(card => {
+    observer.observe(card);
+});
+
     </script>
 </body>
 </html>
