@@ -64,9 +64,8 @@
             
             <div class="hidden md:flex items-center gap-8 text-sm font-medium">
                 <a href="#about" class="nav-link">About</a>
-                <a href="#technology" class="nav-link">Join</a>
-                <a href="#products" class="nav-link">Mission</a>
-                <a href="#vision" class="nav-link">Our Vision</a>
+                <a href="#join" class="nav-link">Join</a>
+                <a href="#mission" class="nav-link">Mission</a>
             </div>
             
             <a href="#contact" 
@@ -90,16 +89,17 @@
             </h1>
             
             <p class="text-xl md:text-2xl text-white/80 max-w-lg mx-auto mb-10">
-                Imagine your aquarium at your place doesn't need any maintenance or care.
+                Imagine your aquarium at your place doesn't need your constant attention.
+                Our company aims to achieve it through means of technology.
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#products" 
+                <a href="#join" 
                    class="px-10 py-5 bg-cyan-400 hover:bg-cyan-300 text-zinc-950 font-semibold rounded-3xl text-lg transition-all flex items-center justify-center gap-3 group">
                     Join the Team
                     <i class="fas fa-arrow-right group-active:translate-x-2 transition"></i>
                 </a>
-                <a href="#vision" 
+                <a href="#mission" 
                    class="px-10 py-5 border border-white/30 hover:border-white/60 font-medium rounded-3xl text-lg transition-all">
                     Learn Our Story
                 </a>
@@ -158,174 +158,15 @@
         </div>
     </section>
 
-    <!-- Technology -->
-    <section id="technology" class="py-24">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <span class="px-4 py-2 bg-white/5 rounded-3xl text-cyan-400 text-sm">JOIN THE TEAM</span>
-                <h2 class="heading-font text-5xl font-semibold mt-4">Our company needs you</h2>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="bg-zinc-900 rounded-3xl p-8 aquarium-card border border-white/5">
-                    <div class="w-14 h-14 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center mb-6">
-                        <i class="fas fa-water text-3xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-3">Contact</h3>
-                    <p class="text-white/70"></p>
-                    <div class="mt-8 text-xs uppercase tracking-widest text-emerald-400">24/7 Autonomous</div>
-                </div>
-                
-                <!-- Card 2 -->
-                <div class="bg-zinc-900 rounded-3xl p-8 aquarium-card border border-white/5">
-                    <div class="w-14 h-14 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center mb-6">
-                        <i class="fas fa-fish text-3xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-3">Fish &amp; Life Guardian</h3>
-                    <p class="text-white/70">Computer vision AI identifies each fish, tracks behavior, detects signs of stress or illness, and alerts you only when truly needed.</p>
-                    <div class="mt-8 text-xs uppercase tracking-widest text-emerald-400">Health AI</div>
-                </div>
-                
-                <!-- Card 3 -->
-                <div class="bg-zinc-900 rounded-3xl p-8 aquarium-card border border-white/5">
-                    <div class="w-14 h-14 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center mb-6">
-                        <i class="fas fa-leaf text-3xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-3">Balance Keeper</h3>
-                    <p class="text-white/70">Smart filtration, algae control, feeding schedules, and nutrient balancing. Your aquarium stays crystal clear and thriving without intervention.</p>
-                    <div class="mt-8 text-xs uppercase tracking-widest text-emerald-400">Self-Cleaning</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Products -->
-    <section id="products" class="py-24 bg-zinc-900">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between items-end mb-12">
-                <div>
-                    <span class="text-cyan-400">MODELS</span>
-                    <h2 class="heading-font text-5xl font-semibold">Choose Your Sanctuary</h2>
-                </div>
-                <a href="#" class="hidden md:flex items-center gap-2 text-white/70 hover:text-white">
-                    View all systems <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Model 1 -->
-                <div class="bg-zinc-950 rounded-3xl overflow-hidden aquarium-card border border-white/10">
-                    <img src="https://picsum.photos/id/1016/800/600" 
-                         alt="Jintae Horizon" 
-                         class="w-full h-64 object-cover">
-                    <div class="p-8">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="text-2xl font-semibold">Horizon 120</h3>
-                                <p class="text-white/50">120 liters • Wall mounted</p>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-emerald-400 font-mono text-sm">FROM</div>
-                                <div class="text-2xl font-semibold">$2,890</div>
-                            </div>
-                        </div>
-                        <ul class="mt-6 space-y-3 text-sm">
-                            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> AI water management</li>
-                            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Auto-feeding system</li>
-                            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Mobile app control</li>
-                        </ul>
-                        <button onclick="alert('Thank you! Our team will contact you shortly about the Horizon 120.')"
-                                class="mt-8 w-full py-4 bg-white text-zinc-950 rounded-2xl font-semibold hover:bg-cyan-300 transition">
-                            Learn More
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Model 2 -->
-                <div class="bg-zinc-950 rounded-3xl overflow-hidden aquarium-card border border-white/10 relative">
-                    <div class="absolute top-6 right-6 bg-emerald-400 text-zinc-950 text-xs font-bold px-4 py-1 rounded-3xl">MOST POPULAR</div>
-                    <img src="https://picsum.photos/id/133/800/600" 
-                         alt="Jintae Lumina" 
-                         class="w-full h-64 object-cover">
-                    <div class="p-8">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="text-2xl font-semibold">Lumina 250</h3>
-                                <p class="text-white/50">250 liters • Floor standing</p>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-emerald-400 font-mono text-sm">FROM</div>
-                                <div class="text-2xl font-semibold">$4,490</div>
-                            </div>
-                        </div>
-                        <ul class="mt-6 space-y-3 text-sm">
-                            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Advanced computer vision</li>
-                            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Voice assistant integration</li>
-                            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> 5-year AI warranty</li>
-                        </ul>
-                        <button onclick="alert('Thank you! Our team will contact you shortly about the Lumina 250.')"
-                                class="mt-8 w-full py-4 bg-white text-zinc-950 rounded-2xl font-semibold hover:bg-cyan-300 transition">
-                            Learn More
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Model 3 -->
-                <div class="bg-zinc-950 rounded-3xl overflow-hidden aquarium-card border border-white/10">
-                    <img src="https://picsum.photos/id/201/800/600" 
-                         alt="Jintae Infinity" 
-                         class="w-full h-64 object-cover">
-                    <div class="p-8">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="text-2xl font-semibold">Infinity 450</h3>
-                                <p class="text-white/50">450 liters • Custom sizes available</p>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-emerald-400 font-mono text-sm">FROM</div>
-                                <div class="text-2xl font-semibold">$8,900</div>
-                            </div>
-                        </div>
-                        <ul class="mt-6 space-y-3 text-sm">
-                            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Full custom ecosystem</li>
-                            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Multi-tank coordination</li>
-                            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Professional installation</li>
-                        </ul>
-                        <button onclick="alert('Thank you! Our team will contact you shortly about the Infinity series.')"
-                                class="mt-8 w-full py-4 bg-white text-zinc-950 rounded-2xl font-semibold hover:bg-cyan-300 transition">
-                            Learn More
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Vision -->
-    <section id="vision" class="py-24 bg-black">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <div class="max-w-md mx-auto">
-                <h2 class="heading-font text-6xl font-light leading-tight">
-                    We want you to own an aquarium the way you own a beautiful painting.
-                </h2>
-                <p class="mt-10 text-lg text-white/70">
-                    No weekly water changes. No filter cleaning. No worrying about fish health. 
-                    Just pure enjoyment of nature’s serenity in your home — every single day.
-                </p>
-                <div class="mt-12 pt-12 border-t border-white/10">
-                    <div class="text-cyan-400 text-sm font-medium">— The Jintae Team</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Final CTA -->
-    <section id="contact" class="py-24 bg-gradient-to-b from-zinc-900 to-black">
+    <!-- join -->
+    <section id="join" class="py-24 bg-gradient-to-b from-zinc-900 to-black">
         <div class="max-w-2xl mx-auto px-6 text-center">
-            <h2 class="heading-font text-5xl font-semibold mb-6">Ready for effortless beauty?</h2>
+            <h2 class="heading-font text-5xl font-semibold mb-6">Join Our Team!</h2>
             <p class="text-xl text-white/70 mb-10">
-                Join the waitlist for our first production models. Early supporters receive lifetime premium support.
+                Nobody has ever acheived full-automation of aquarium; our company will be the first to do so. And we need you!
+            <br>
+            <br>
+            Send an email to: hiring@jintaeaquarium.com, or fill out the form below.
             </p>
             
             <form onsubmit="submitForm(event)" class="space-y-6">
@@ -340,13 +181,26 @@
                 
                 <button type="submit"
                         class="w-full py-7 bg-cyan-400 hover:bg-white text-zinc-950 font-semibold text-xl rounded-3xl transition-all">
-                    Join the Movement
+                    Send 
                 </button>
             </form>
             
-            <p class="text-xs text-white/40 mt-8">
-                We respect your inbox. No spam, ever.
-            </p>
+       
+        </div>
+    </section>
+
+    <!-- Mission -->
+    <section id="mission" class="py-24 bg-black">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="max-w-md mx-auto">
+                <h2 class="heading-font text-6xl font-light leading-tight">
+                    We want you to own an aquarium the way you own a beautiful painting.
+                </h2>
+                <p class="mt-10 text-lg text-white/70">
+                    No weekly water changes. No filter cleaning. No worrying about fish health. 
+                    Just pure enjoyment of nature’s serenity in your home — every single day.
+                </p>
+            </div>
         </div>
     </section>
 
