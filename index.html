@@ -532,10 +532,15 @@
             border-color: rgba(232, 121, 249, 0.45);
             color: #f5f3ff;
         }
+
+        /* Below md: nav in normal flow (overrides any future concept rule that fixes .ja-nav) */
+        @media (max-width: 767px) {
+            html[data-concept] .ja-nav { position: relative !important; }
+        }
     </style>
 </head>
 <body class="bg-zinc-950 text-white overflow-x-hidden">
-    <nav class="ja-nav fixed top-0 w-full bg-zinc-950/90 backdrop-blur-md z-50 border-b border-white/10">
+    <nav class="ja-nav relative md:fixed top-0 w-full z-50 bg-zinc-950/90 backdrop-blur-md border-b border-white/10">
         <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
             <div class="flex items-center gap-3">
                 <span class="heading-font text-2xl font-semibold tracking-tight">Jintae Aquarium</span>
@@ -561,7 +566,7 @@
         </div>
     </nav>
 
-    <section class="ja-hero hero-bg min-h-screen flex items-center relative pt-16 pb-20 md:pb-12">
+    <section class="ja-hero hero-bg min-h-screen flex items-center relative pt-0 md:pt-16 pb-20 md:pb-12">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <h1 class="heading-font text-5xl sm:text-6xl md:text-7xl font-bold leading-tight mb-6 tracking-tighter">
                 100% Automation of Aquarium Care
