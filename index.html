@@ -1,816 +1,1154 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-concept="1">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jintae Aquarium</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Lato:wght@400;700&family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Lato:wght@400;700&family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
     <style>
-        /* ----- Shared ----- */
-        .mobile-menu { transition: opacity 0.35s ease, transform 0.35s ease; }
+      /* ----- Shared ----- */
+      .mobile-menu {
+        transition:
+          opacity 0.35s ease,
+          transform 0.35s ease;
+      }
 
-        .image-card {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
-        }
-        .image-card.visible { opacity: 1; transform: translateY(0); }
+      .image-card {
+        opacity: 0;
+        transform: translateY(40px);
+        transition:
+          opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+          transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+      }
+      .image-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
 
-        .image-card img {
-            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
-        }
+      .image-card img {
+        box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+      }
 
-        @keyframes ja-float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
+      @keyframes ja-float {
+        0%,
+        100% {
+          transform: translateY(0);
         }
-        .image-card:hover img { animation: ja-float 4s ease-in-out infinite; }
+        50% {
+          transform: translateY(-12px);
+        }
+      }
+      .image-card:hover img {
+        animation: ja-float 4s ease-in-out infinite;
+      }
 
-        .nav-link { transition: color 0.25s ease, transform 0.25s ease; }
+      .nav-link {
+        transition:
+          color 0.25s ease,
+          transform 0.25s ease;
+      }
 
-        /* Concept switcher */
-        @media (max-width: 767px) {
-            body { padding-bottom: 108px; }
+      /* Concept switcher */
+      @media (max-width: 767px) {
+        body {
+          padding-bottom: 108px;
         }
-        .ja-concept-panel {
-            position: fixed;
-            right: 10px;
-            bottom: max(10px, env(safe-area-inset-bottom, 0px));
-            z-index: 100;
-            font-family: 'Inter', system-ui, sans-serif;
-            font-size: 10px;
-            line-height: 1.25;
-            border-radius: 12px;
-            padding: 8px 8px 6px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-            backdrop-filter: blur(14px);
-            max-width: min(220px, calc(100vw - 20px));
-        }
-        .ja-concept-chips {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 4px;
-            margin-bottom: 4px;
-        }
-        .ja-concept-panel button {
-            min-width: 0;
-            padding: 5px 3px;
-            border-radius: 8px;
-            border: 1px solid transparent;
-            font-size: 8.5px;
-            font-weight: 600;
-            letter-spacing: 0.01em;
-            cursor: pointer;
-            transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
-        }
-        .ja-concept-panel button:active { transform: scale(0.97); }
+      }
+      .ja-concept-panel {
+        position: fixed;
+        right: 10px;
+        bottom: max(10px, env(safe-area-inset-bottom, 0px));
+        z-index: 100;
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 10px;
+        line-height: 1.25;
+        border-radius: 12px;
+        padding: 8px 8px 6px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(14px);
+        max-width: min(220px, calc(100vw - 20px));
+      }
+      .ja-concept-chips {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 4px;
+        margin-bottom: 4px;
+      }
+      .ja-concept-panel button {
+        min-width: 0;
+        padding: 5px 3px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        font-size: 8.5px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          border-color 0.2s,
+          color 0.2s,
+          transform 0.15s;
+      }
+      .ja-concept-panel button:active {
+        transform: scale(0.97);
+      }
 
-        /* ========== Concept 1 — Abyss (default) ========== */
-        html[data-concept="1"] {
-            --ja-heading: 'Playfair Display', Georgia, serif;
-            --ja-body: 'Inter', system-ui, sans-serif;
-        }
-        html[data-concept="1"] body { font-family: var(--ja-body); }
-        html[data-concept="1"] .heading-font { font-family: var(--ja-heading); }
+      /* ========== Concept 1 — Abyss (default) ========== */
+      html[data-concept="1"] {
+        --ja-heading: "Playfair Display", Georgia, serif;
+        --ja-body: "Inter", system-ui, sans-serif;
+      }
+      html[data-concept="1"] body {
+        font-family: var(--ja-body);
+      }
+      html[data-concept="1"] .heading-font {
+        font-family: var(--ja-heading);
+      }
 
-        html[data-concept="1"] .ja-nav {
-            background: rgba(9, 9, 11, 0.88);
-            border-bottom-color: rgba(255, 255, 255, 0.1);
-        }
-        html[data-concept="1"] .ja-nav-mobile { background: #09090b; border-top-color: rgba(255, 255, 255, 0.1); }
-        html[data-concept="1"] .nav-link:hover { color: #22d3ee; transform: translateY(-2px); }
+      html[data-concept="1"] .ja-nav {
+        background: rgba(9, 9, 11, 0.88);
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+      }
+      html[data-concept="1"] .ja-nav-mobile {
+        background: #09090b;
+        border-top-color: rgba(255, 255, 255, 0.1);
+      }
+      html[data-concept="1"] .nav-link:hover {
+        color: #22d3ee;
+        transform: translateY(-2px);
+      }
 
-        html[data-concept="1"] .ja-hero.hero-bg {
-            background-image: linear-gradient(rgba(10, 61, 98, 0.75), rgba(10, 61, 98, 0.85)),
-                url('8A6574E0-53F8-42E2-B7A0-5FFF31401846.jpg');
-            background-size: cover;
-            background-position: center;
-        }
+      html[data-concept="1"] .ja-hero.hero-bg {
+        background-image:
+          linear-gradient(rgba(10, 61, 98, 0.75), rgba(10, 61, 98, 0.85)),
+          url("8A6574E0-53F8-42E2-B7A0-5FFF31401846.jpg");
+        background-size: cover;
+        background-position: center;
+      }
 
-        html[data-concept="1"] .ja-accent { color: #22d3ee !important; }
-        html[data-concept="1"] .ja-btn-primary {
-            background-color: #22d3ee !important;
-            color: #09090b !important;
-        }
-        html[data-concept="1"] .ja-btn-primary:hover { background-color: #67e8f9 !important; }
-        html[data-concept="1"] .ja-social a:hover { color: #22d3ee !important; }
+      html[data-concept="1"] .ja-accent {
+        color: #22d3ee !important;
+      }
+      html[data-concept="1"] .ja-btn-primary {
+        background-color: #22d3ee !important;
+        color: #09090b !important;
+      }
+      html[data-concept="1"] .ja-btn-primary:hover {
+        background-color: #67e8f9 !important;
+      }
+      html[data-concept="1"] .ja-social a:hover {
+        color: #22d3ee !important;
+      }
 
-        html[data-concept="1"] .ja-concept-panel {
-            background: rgba(9, 9, 11, 0.92);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: rgba(255, 255, 255, 0.85);
-        }
-        html[data-concept="1"] .ja-concept-panel button { background: rgba(255, 255, 255, 0.06); color: rgba(255, 255, 255, 0.75); }
-        html[data-concept="1"] .ja-concept-panel button.is-active {
-            background: rgba(34, 211, 238, 0.2);
-            border-color: rgba(34, 211, 238, 0.45);
-            color: #a5f3fc;
-        }
+      html[data-concept="1"] .ja-concept-panel {
+        background: rgba(9, 9, 11, 0.92);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.85);
+      }
+      html[data-concept="1"] .ja-concept-panel button {
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.75);
+      }
+      html[data-concept="1"] .ja-concept-panel button.is-active {
+        background: rgba(34, 211, 238, 0.2);
+        border-color: rgba(34, 211, 238, 0.45);
+        color: #a5f3fc;
+      }
 
-        /* ========== Concept 2 — Observatory (tech / instrument) ========== */
-        html[data-concept="2"] {
-            --ja-heading: 'Space Grotesk', system-ui, sans-serif;
-            --ja-body: 'DM Sans', system-ui, sans-serif;
-        }
-        html[data-concept="2"] body {
-            font-family: var(--ja-body);
-            background-color: #070b14 !important;
-            color: #e2e8f0 !important;
-        }
-        html[data-concept="2"] .heading-font {
-            font-family: var(--ja-heading);
-            letter-spacing: -0.03em;
-        }
+      /* ========== Concept 2 — Observatory (tech / instrument) ========== */
+      html[data-concept="2"] {
+        --ja-heading: "Space Grotesk", system-ui, sans-serif;
+        --ja-body: "DM Sans", system-ui, sans-serif;
+      }
+      html[data-concept="2"] body {
+        font-family: var(--ja-body);
+        background-color: #070b14 !important;
+        color: #e2e8f0 !important;
+      }
+      html[data-concept="2"] .heading-font {
+        font-family: var(--ja-heading);
+        letter-spacing: -0.03em;
+      }
 
-        html[data-concept="2"] .ja-nav {
-            background: rgba(7, 11, 20, 0.92) !important;
-            border-bottom: 1px solid rgba(163, 230, 53, 0.2) !important;
-            backdrop-filter: blur(8px);
-        }
-        html[data-concept="2"] .ja-nav-mobile {
-            background: #070b14 !important;
-            border-top: 1px solid rgba(163, 230, 53, 0.15) !important;
-        }
-        html[data-concept="2"] .nav-link:hover { color: #bef264 !important; transform: none; }
+      html[data-concept="2"] .ja-nav {
+        background: rgba(7, 11, 20, 0.92) !important;
+        border-bottom: 1px solid rgba(163, 230, 53, 0.2) !important;
+        backdrop-filter: blur(8px);
+      }
+      html[data-concept="2"] .ja-nav-mobile {
+        background: #070b14 !important;
+        border-top: 1px solid rgba(163, 230, 53, 0.15) !important;
+      }
+      html[data-concept="2"] .nav-link:hover {
+        color: #bef264 !important;
+        transform: none;
+      }
 
-        html[data-concept="2"] .ja-hero.hero-bg {
-            background-image:
-                linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(7, 11, 20, 0.75) 50%, rgba(22, 101, 52, 0.35) 100%),
-                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 48px),
-                url('8A6574E0-53F8-42E2-B7A0-5FFF31401846.jpg');
-            background-size: cover, auto, cover;
-            background-position: center, center, center;
-        }
+      html[data-concept="2"] .ja-hero.hero-bg {
+        background-image:
+          linear-gradient(
+            135deg,
+            rgba(15, 23, 42, 0.92) 0%,
+            rgba(7, 11, 20, 0.75) 50%,
+            rgba(22, 101, 52, 0.35) 100%
+          ),
+          repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.03) 0 1px,
+            transparent 1px 48px
+          ),
+          url("8A6574E0-53F8-42E2-B7A0-5FFF31401846.jpg");
+        background-size: cover, auto, cover;
+        background-position: center, center, center;
+      }
 
-        html[data-concept="2"] #about { background-color: #0f172a !important; }
-        html[data-concept="2"] #join {
-            background: linear-gradient(to bottom, #0f172a, #020617) !important;
-        }
-        html[data-concept="2"] #mission { background-color: #020617 !important; }
-        html[data-concept="2"] .ja-footer {
-            background-color: #020617 !important;
-            border-top-color: rgba(163, 230, 53, 0.15) !important;
-        }
+      html[data-concept="2"] #about {
+        background-color: #0f172a !important;
+      }
+      html[data-concept="2"] #join {
+        background: linear-gradient(to bottom, #0f172a, #020617) !important;
+      }
+      html[data-concept="2"] #mission {
+        background-color: #020617 !important;
+      }
+      html[data-concept="2"] .ja-footer {
+        background-color: #020617 !important;
+        border-top-color: rgba(163, 230, 53, 0.15) !important;
+      }
 
-        html[data-concept="2"] .ja-accent { color: #bef264 !important; }
-        html[data-concept="2"] .ja-btn-primary {
-            background-color: #bef264 !important;
-            color: #020617 !important;
-            border-radius: 0.375rem !important;
-        }
-        html[data-concept="2"] .ja-btn-primary:hover { background-color: #d9f99d !important; }
-        html[data-concept="2"] .ja-btn-outline {
-            border-radius: 0.375rem !important;
-            border-color: rgba(190, 242, 100, 0.45) !important;
-        }
-        html[data-concept="2"] .ja-social a:hover { color: #bef264 !important; }
+      html[data-concept="2"] .ja-accent {
+        color: #bef264 !important;
+      }
+      html[data-concept="2"] .ja-btn-primary {
+        background-color: #bef264 !important;
+        color: #020617 !important;
+        border-radius: 0.375rem !important;
+      }
+      html[data-concept="2"] .ja-btn-primary:hover {
+        background-color: #d9f99d !important;
+      }
+      html[data-concept="2"] .ja-btn-outline {
+        border-radius: 0.375rem !important;
+        border-color: rgba(190, 242, 100, 0.45) !important;
+      }
+      html[data-concept="2"] .ja-social a:hover {
+        color: #bef264 !important;
+      }
 
-        html[data-concept="2"] #mission img { border-radius: 0.5rem !important; }
-        html[data-concept="2"] .image-card img {
-            box-shadow: 0 0 0 1px rgba(163, 230, 53, 0.12), 0 20px 50px rgba(0, 0, 0, 0.55) !important;
-        }
+      html[data-concept="2"] #mission img {
+        border-radius: 0.5rem !important;
+      }
+      html[data-concept="2"] .image-card img {
+        box-shadow:
+          0 0 0 1px rgba(163, 230, 53, 0.12),
+          0 20px 50px rgba(0, 0, 0, 0.55) !important;
+      }
 
-        html[data-concept="2"] .ja-concept-panel {
-            background: rgba(15, 23, 42, 0.95);
-            border: 1px solid rgba(163, 230, 53, 0.25);
-            color: #ecfccb;
-        }
-        html[data-concept="2"] .ja-concept-panel button { background: rgba(255, 255, 255, 0.05); color: #cbd5e1; }
-        html[data-concept="2"] .ja-concept-panel button.is-active {
-            background: rgba(190, 242, 100, 0.15);
-            border-color: rgba(190, 242, 100, 0.5);
-            color: #ecfccb;
-        }
+      html[data-concept="2"] .ja-concept-panel {
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid rgba(163, 230, 53, 0.25);
+        color: #ecfccb;
+      }
+      html[data-concept="2"] .ja-concept-panel button {
+        background: rgba(255, 255, 255, 0.05);
+        color: #cbd5e1;
+      }
+      html[data-concept="2"] .ja-concept-panel button.is-active {
+        background: rgba(190, 242, 100, 0.15);
+        border-color: rgba(190, 242, 100, 0.5);
+        color: #ecfccb;
+      }
 
-        /* ========== Concept 3 — Atelier (warm gallery) ========== */
-        html[data-concept="3"] {
-            --ja-heading: 'Cormorant Garamond', Georgia, serif;
-            --ja-body: 'Lato', system-ui, sans-serif;
-        }
-        html[data-concept="3"] body {
-            font-family: var(--ja-body);
-            background-color: #141110 !important;
-            color: #f5f0e8 !important;
-        }
-        html[data-concept="3"] .heading-font {
-            font-family: var(--ja-heading);
-            font-weight: 600;
-        }
+      /* ========== Concept 3 — Atelier (warm gallery) ========== */
+      html[data-concept="3"] {
+        --ja-heading: "Cormorant Garamond", Georgia, serif;
+        --ja-body: "Lato", system-ui, sans-serif;
+      }
+      html[data-concept="3"] body {
+        font-family: var(--ja-body);
+        background-color: #141110 !important;
+        color: #f5f0e8 !important;
+      }
+      html[data-concept="3"] .heading-font {
+        font-family: var(--ja-heading);
+        font-weight: 600;
+      }
 
-        html[data-concept="3"] .ja-nav {
-            background: rgba(20, 17, 16, 0.9) !important;
-            border-bottom: 1px solid rgba(212, 165, 116, 0.2) !important;
-        }
-        html[data-concept="3"] .ja-nav-mobile {
-            background: #141110 !important;
-            border-top-color: rgba(212, 165, 116, 0.2) !important;
-        }
-        html[data-concept="3"] .nav-link:hover { color: #e8c9a0 !important; transform: none; }
+      html[data-concept="3"] .ja-nav {
+        background: rgba(20, 17, 16, 0.9) !important;
+        border-bottom: 1px solid rgba(212, 165, 116, 0.2) !important;
+      }
+      html[data-concept="3"] .ja-nav-mobile {
+        background: #141110 !important;
+        border-top-color: rgba(212, 165, 116, 0.2) !important;
+      }
+      html[data-concept="3"] .nav-link:hover {
+        color: #e8c9a0 !important;
+        transform: none;
+      }
 
-        html[data-concept="3"] .ja-hero.hero-bg {
-            background-image:
-                linear-gradient(to bottom, rgba(40, 32, 28, 0.55) 0%, rgba(20, 17, 16, 0.88) 100%),
-                url('8A6574E0-53F8-42E2-B7A0-5FFF31401846.jpg');
-            background-size: cover;
-            background-position: center;
-        }
+      html[data-concept="3"] .ja-hero.hero-bg {
+        background-image:
+          linear-gradient(
+            to bottom,
+            rgba(40, 32, 28, 0.55) 0%,
+            rgba(20, 17, 16, 0.88) 100%
+          ),
+          url("8A6574E0-53F8-42E2-B7A0-5FFF31401846.jpg");
+        background-size: cover;
+        background-position: center;
+      }
 
-        html[data-concept="3"] #about { background-color: #1c1816 !important; }
-        html[data-concept="3"] #join {
-            background: linear-gradient(to bottom, #1c1816, #0f0d0c) !important;
-        }
-        html[data-concept="3"] #mission { background-color: #0f0d0c !important; }
-        html[data-concept="3"] .ja-footer {
-            background-color: #0f0d0c !important;
-            border-top-color: rgba(212, 165, 116, 0.18) !important;
-        }
+      html[data-concept="3"] #about {
+        background-color: #1c1816 !important;
+      }
+      html[data-concept="3"] #join {
+        background: linear-gradient(to bottom, #1c1816, #0f0d0c) !important;
+      }
+      html[data-concept="3"] #mission {
+        background-color: #0f0d0c !important;
+      }
+      html[data-concept="3"] .ja-footer {
+        background-color: #0f0d0c !important;
+        border-top-color: rgba(212, 165, 116, 0.18) !important;
+      }
 
-        html[data-concept="3"] .text-white\/80,
-        html[data-concept="3"] .text-white\/70,
-        html[data-concept="3"] .text-white\/50 { color: rgba(245, 240, 232, 0.72) !important; }
+      html[data-concept="3"] .text-white\/80,
+      html[data-concept="3"] .text-white\/70,
+      html[data-concept="3"] .text-white\/50 {
+        color: rgba(245, 240, 232, 0.72) !important;
+      }
 
-        html[data-concept="3"] .ja-accent { color: #d4a574 !important; }
-        html[data-concept="3"] .ja-btn-primary {
-            background-color: #d4a574 !important;
-            color: #1a1412 !important;
-            border-radius: 9999px !important;
-        }
-        html[data-concept="3"] .ja-btn-primary:hover { background-color: #e8c9a0 !important; }
-        html[data-concept="3"] .ja-btn-outline {
-            border-color: rgba(212, 165, 116, 0.45) !important;
-            border-radius: 9999px !important;
-        }
-        html[data-concept="3"] .ja-social a:hover { color: #d4a574 !important; }
+      html[data-concept="3"] .ja-accent {
+        color: #d4a574 !important;
+      }
+      html[data-concept="3"] .ja-btn-primary {
+        background-color: #d4a574 !important;
+        color: #1a1412 !important;
+        border-radius: 9999px !important;
+      }
+      html[data-concept="3"] .ja-btn-primary:hover {
+        background-color: #e8c9a0 !important;
+      }
+      html[data-concept="3"] .ja-btn-outline {
+        border-color: rgba(212, 165, 116, 0.45) !important;
+        border-radius: 9999px !important;
+      }
+      html[data-concept="3"] .ja-social a:hover {
+        color: #d4a574 !important;
+      }
 
-        html[data-concept="3"] #mission img {
-            border-radius: 1.25rem !important;
-            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5) !important;
-        }
+      html[data-concept="3"] #mission img {
+        border-radius: 1.25rem !important;
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5) !important;
+      }
 
-        html[data-concept="3"] .ja-concept-panel {
-            background: rgba(28, 24, 22, 0.94);
-            border: 1px solid rgba(212, 165, 116, 0.25);
-            color: #f5f0e8;
-        }
-        html[data-concept="3"] .ja-concept-panel button { background: rgba(255, 255, 255, 0.05); color: rgba(245, 240, 232, 0.75); }
-        html[data-concept="3"] .ja-concept-panel button.is-active {
-            background: rgba(212, 165, 116, 0.2);
-            border-color: rgba(212, 165, 116, 0.45);
-            color: #fdf6ee;
-        }
+      html[data-concept="3"] .ja-concept-panel {
+        background: rgba(28, 24, 22, 0.94);
+        border: 1px solid rgba(212, 165, 116, 0.25);
+        color: #f5f0e8;
+      }
+      html[data-concept="3"] .ja-concept-panel button {
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(245, 240, 232, 0.75);
+      }
+      html[data-concept="3"] .ja-concept-panel button.is-active {
+        background: rgba(212, 165, 116, 0.2);
+        border-color: rgba(212, 165, 116, 0.45);
+        color: #fdf6ee;
+      }
 
-        /* ========== Concept 4 — Fjord (Nordic minimal) ========== */
-        html[data-concept="4"] {
-            --ja-heading: 'Cormorant Garamond', Georgia, serif;
-            --ja-body: 'DM Sans', system-ui, sans-serif;
-        }
-        html[data-concept="4"] body {
-            font-family: var(--ja-body);
-            background-color: #121a22 !important;
-            color: #e8eef2 !important;
-            letter-spacing: 0.01em;
-        }
-        html[data-concept="4"] .heading-font {
-            font-family: var(--ja-heading);
-            font-weight: 600;
-            letter-spacing: 0.02em;
-        }
+      /* ========== Concept 4 — Fjord (Nordic minimal) ========== */
+      html[data-concept="4"] {
+        --ja-heading: "Cormorant Garamond", Georgia, serif;
+        --ja-body: "DM Sans", system-ui, sans-serif;
+      }
+      html[data-concept="4"] body {
+        font-family: var(--ja-body);
+        background-color: #121a22 !important;
+        color: #e8eef2 !important;
+        letter-spacing: 0.01em;
+      }
+      html[data-concept="4"] .heading-font {
+        font-family: var(--ja-heading);
+        font-weight: 600;
+        letter-spacing: 0.02em;
+      }
 
-        html[data-concept="4"] .ja-nav {
-            background: rgba(18, 26, 34, 0.88) !important;
-            border-bottom: 1px solid rgba(143, 184, 212, 0.22) !important;
-            backdrop-filter: blur(12px);
-        }
-        html[data-concept="4"] .ja-nav-mobile {
-            background: #121a22 !important;
-            border-top-color: rgba(143, 184, 212, 0.2) !important;
-        }
-        html[data-concept="4"] .nav-link:hover { color: #b8d9ea !important; transform: none; }
+      html[data-concept="4"] .ja-nav {
+        background: rgba(18, 26, 34, 0.88) !important;
+        border-bottom: 1px solid rgba(143, 184, 212, 0.22) !important;
+        backdrop-filter: blur(12px);
+      }
+      html[data-concept="4"] .ja-nav-mobile {
+        background: #121a22 !important;
+        border-top-color: rgba(143, 184, 212, 0.2) !important;
+      }
+      html[data-concept="4"] .nav-link:hover {
+        color: #b8d9ea !important;
+        transform: none;
+      }
 
-        html[data-concept="4"] .ja-hero.hero-bg {
-            background-image:
-                linear-gradient(180deg, rgba(24, 36, 46, 0.35) 0%, rgba(18, 26, 34, 0.82) 100%),
-                url('8A6574E0-53F8-42E2-B7A0-5FFF31401846.jpg');
-            background-size: cover;
-            background-position: center;
-        }
+      html[data-concept="4"] .ja-hero.hero-bg {
+        background-image:
+          linear-gradient(
+            180deg,
+            rgba(24, 36, 46, 0.35) 0%,
+            rgba(18, 26, 34, 0.82) 100%
+          ),
+          url("8A6574E0-53F8-42E2-B7A0-5FFF31401846.jpg");
+        background-size: cover;
+        background-position: center;
+      }
 
-        html[data-concept="4"] #about { background-color: #161e28 !important; }
-        html[data-concept="4"] #join {
-            background: linear-gradient(to bottom, #161e28, #101820) !important;
-        }
-        html[data-concept="4"] #mission { background-color: #101820 !important; }
-        html[data-concept="4"] .ja-footer {
-            background-color: #0e141c !important;
-            border-top-color: rgba(143, 184, 212, 0.2) !important;
-        }
+      html[data-concept="4"] #about {
+        background-color: #161e28 !important;
+      }
+      html[data-concept="4"] #join {
+        background: linear-gradient(to bottom, #161e28, #101820) !important;
+      }
+      html[data-concept="4"] #mission {
+        background-color: #101820 !important;
+      }
+      html[data-concept="4"] .ja-footer {
+        background-color: #0e141c !important;
+        border-top-color: rgba(143, 184, 212, 0.2) !important;
+      }
 
-        html[data-concept="4"] .text-white\/80,
-        html[data-concept="4"] .text-white\/70,
-        html[data-concept="4"] .text-white\/50 { color: rgba(216, 228, 236, 0.68) !important; }
+      html[data-concept="4"] .text-white\/80,
+      html[data-concept="4"] .text-white\/70,
+      html[data-concept="4"] .text-white\/50 {
+        color: rgba(216, 228, 236, 0.68) !important;
+      }
 
-        html[data-concept="4"] .ja-accent { color: #8fb8d4 !important; }
-        html[data-concept="4"] .ja-btn-primary {
-            background-color: #8fb8d4 !important;
-            color: #0e141c !important;
-            border-radius: 0.375rem !important;
-        }
-        html[data-concept="4"] .ja-btn-primary:hover { background-color: #b8d9ea !important; }
-        html[data-concept="4"] .ja-btn-outline {
-            border-radius: 0.375rem !important;
-            border-color: rgba(143, 184, 212, 0.4) !important;
-        }
-        html[data-concept="4"] .ja-social a:hover { color: #8fb8d4 !important; }
+      html[data-concept="4"] .ja-accent {
+        color: #8fb8d4 !important;
+      }
+      html[data-concept="4"] .ja-btn-primary {
+        background-color: #8fb8d4 !important;
+        color: #0e141c !important;
+        border-radius: 0.375rem !important;
+      }
+      html[data-concept="4"] .ja-btn-primary:hover {
+        background-color: #b8d9ea !important;
+      }
+      html[data-concept="4"] .ja-btn-outline {
+        border-radius: 0.375rem !important;
+        border-color: rgba(143, 184, 212, 0.4) !important;
+      }
+      html[data-concept="4"] .ja-social a:hover {
+        color: #8fb8d4 !important;
+      }
 
-        html[data-concept="4"] #mission img {
-            border-radius: 0.5rem !important;
-            box-shadow: 0 1px 0 rgba(143, 184, 212, 0.15), 0 20px 40px rgba(0, 0, 0, 0.35) !important;
-        }
-        html[data-concept="4"] .image-card img {
-            box-shadow: 0 0 0 1px rgba(143, 184, 212, 0.12), 0 18px 36px rgba(0, 0, 0, 0.4) !important;
-        }
+      html[data-concept="4"] #mission img {
+        border-radius: 0.5rem !important;
+        box-shadow:
+          0 1px 0 rgba(143, 184, 212, 0.15),
+          0 20px 40px rgba(0, 0, 0, 0.35) !important;
+      }
+      html[data-concept="4"] .image-card img {
+        box-shadow:
+          0 0 0 1px rgba(143, 184, 212, 0.12),
+          0 18px 36px rgba(0, 0, 0, 0.4) !important;
+      }
 
-        html[data-concept="4"] .ja-concept-panel {
-            background: rgba(22, 30, 40, 0.94);
-            border: 1px solid rgba(143, 184, 212, 0.28);
-            color: #dce8ef;
-        }
-        html[data-concept="4"] .ja-concept-panel button { background: rgba(255, 255, 255, 0.05); color: rgba(220, 232, 239, 0.78); }
-        html[data-concept="4"] .ja-concept-panel button.is-active {
-            background: rgba(143, 184, 212, 0.18);
-            border-color: rgba(143, 184, 212, 0.45);
-            color: #f0f6fa;
-        }
+      html[data-concept="4"] .ja-concept-panel {
+        background: rgba(22, 30, 40, 0.94);
+        border: 1px solid rgba(143, 184, 212, 0.28);
+        color: #dce8ef;
+      }
+      html[data-concept="4"] .ja-concept-panel button {
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(220, 232, 239, 0.78);
+      }
+      html[data-concept="4"] .ja-concept-panel button.is-active {
+        background: rgba(143, 184, 212, 0.18);
+        border-color: rgba(143, 184, 212, 0.45);
+        color: #f0f6fa;
+      }
 
-        /* ========== Concept 5 — Block (brutalist) ========== */
-        html[data-concept="5"] {
-            --ja-heading: 'JetBrains Mono', ui-monospace, monospace;
-            --ja-body: 'JetBrains Mono', ui-monospace, monospace;
-        }
-        html[data-concept="5"] body {
-            font-family: var(--ja-body);
-            background-color: #050505 !important;
-            color: #fafafa !important;
-        }
-        html[data-concept="5"] .heading-font {
-            font-family: var(--ja-heading);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
+      /* ========== Concept 5 — Block (brutalist) ========== */
+      html[data-concept="5"] {
+        --ja-heading: "JetBrains Mono", ui-monospace, monospace;
+        --ja-body: "JetBrains Mono", ui-monospace, monospace;
+      }
+      html[data-concept="5"] body {
+        font-family: var(--ja-body);
+        background-color: #050505 !important;
+        color: #fafafa !important;
+      }
+      html[data-concept="5"] .heading-font {
+        font-family: var(--ja-heading);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
 
-        html[data-concept="5"] .ja-nav {
-            background: #000000 !important;
-            border-bottom: 3px solid #ffffff !important;
-            backdrop-filter: none;
-        }
-        html[data-concept="5"] .ja-nav-mobile {
-            background: #000000 !important;
-            border-top: 3px solid #ffffff !important;
-        }
-        html[data-concept="5"] .nav-link:hover { color: #facc15 !important; transform: none; }
+      html[data-concept="5"] .ja-nav {
+        background: #000000 !important;
+        border-bottom: 3px solid #ffffff !important;
+        backdrop-filter: none;
+      }
+      html[data-concept="5"] .ja-nav-mobile {
+        background: #000000 !important;
+        border-top: 3px solid #ffffff !important;
+      }
+      html[data-concept="5"] .nav-link:hover {
+        color: #facc15 !important;
+        transform: none;
+      }
 
-        html[data-concept="5"] .ja-hero.hero-bg {
-            background-image:
-                linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.9) 100%),
-                url('8A6574E0-53F8-42E2-B7A0-5FFF31401846.jpg');
-            background-size: cover;
-            background-position: center;
-        }
+      html[data-concept="5"] .ja-hero.hero-bg {
+        background-image:
+          linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.55) 0%,
+            rgba(0, 0, 0, 0.9) 100%
+          ),
+          url("8A6574E0-53F8-42E2-B7A0-5FFF31401846.jpg");
+        background-size: cover;
+        background-position: center;
+      }
 
-        html[data-concept="5"] #about { background-color: #0a0a0a !important; }
-        html[data-concept="5"] #join {
-            background: linear-gradient(to bottom, #0a0a0a, #000000) !important;
-        }
-        html[data-concept="5"] #mission { background-color: #000000 !important; }
-        html[data-concept="5"] .ja-footer {
-            background-color: #000000 !important;
-            border-top: 3px solid #ffffff !important;
-        }
+      html[data-concept="5"] #about {
+        background-color: #0a0a0a !important;
+      }
+      html[data-concept="5"] #join {
+        background: linear-gradient(to bottom, #0a0a0a, #000000) !important;
+      }
+      html[data-concept="5"] #mission {
+        background-color: #000000 !important;
+      }
+      html[data-concept="5"] .ja-footer {
+        background-color: #000000 !important;
+        border-top: 3px solid #ffffff !important;
+      }
 
-        html[data-concept="5"] .ja-accent { color: #facc15 !important; }
-        html[data-concept="5"] .ja-btn-primary {
-            background-color: #facc15 !important;
-            color: #000000 !important;
-            border-radius: 0 !important;
-            border: 3px solid #ffffff !important;
-        }
-        html[data-concept="5"] .ja-btn-primary:hover { background-color: #fde047 !important; }
-        html[data-concept="5"] .ja-btn-outline {
-            border-radius: 0 !important;
-            border-width: 3px !important;
-            border-color: #ffffff !important;
-            background: transparent !important;
-        }
-        html[data-concept="5"] .ja-social a:hover { color: #facc15 !important; }
+      html[data-concept="5"] .ja-accent {
+        color: #facc15 !important;
+      }
+      html[data-concept="5"] .ja-btn-primary {
+        background-color: #facc15 !important;
+        color: #000000 !important;
+        border-radius: 0 !important;
+        border: 3px solid #ffffff !important;
+      }
+      html[data-concept="5"] .ja-btn-primary:hover {
+        background-color: #fde047 !important;
+      }
+      html[data-concept="5"] .ja-btn-outline {
+        border-radius: 0 !important;
+        border-width: 3px !important;
+        border-color: #ffffff !important;
+        background: transparent !important;
+      }
+      html[data-concept="5"] .ja-social a:hover {
+        color: #facc15 !important;
+      }
 
-        html[data-concept="5"] #mission img {
-            border-radius: 0 !important;
-            border: 3px solid #ffffff !important;
-            box-shadow: none !important;
-        }
-        html[data-concept="5"] .image-card img {
-            box-shadow: none !important;
-            border: 3px solid #fafafa !important;
-            border-radius: 0 !important;
-        }
+      html[data-concept="5"] #mission img {
+        border-radius: 0 !important;
+        border: 3px solid #ffffff !important;
+        box-shadow: none !important;
+      }
+      html[data-concept="5"] .image-card img {
+        box-shadow: none !important;
+        border: 3px solid #fafafa !important;
+        border-radius: 0 !important;
+      }
 
-        html[data-concept="5"] .ja-concept-panel {
-            background: #000000;
-            border: 3px solid #ffffff;
-            color: #fafafa;
-            border-radius: 0;
-            backdrop-filter: none;
-        }
-        html[data-concept="5"] .ja-concept-panel button {
-            background: #0a0a0a;
-            color: #e5e5e5;
-            border-radius: 0 !important;
-        }
-        html[data-concept="5"] .ja-concept-panel button.is-active {
-            background: #facc15;
-            border-color: #ffffff;
-            color: #000000;
-        }
+      html[data-concept="5"] .ja-concept-panel {
+        background: #000000;
+        border: 3px solid #ffffff;
+        color: #fafafa;
+        border-radius: 0;
+        backdrop-filter: none;
+      }
+      html[data-concept="5"] .ja-concept-panel button {
+        background: #0a0a0a;
+        color: #e5e5e5;
+        border-radius: 0 !important;
+      }
+      html[data-concept="5"] .ja-concept-panel button.is-active {
+        background: #facc15;
+        border-color: #ffffff;
+        color: #000000;
+      }
 
-        /* ========== Concept 6 — Prism (glass / bioluminescent) ========== */
-        html[data-concept="6"] {
-            --ja-heading: 'Space Grotesk', system-ui, sans-serif;
-            --ja-body: 'Inter', system-ui, sans-serif;
-        }
-        html[data-concept="6"] body {
-            font-family: var(--ja-body);
-            background-color: #0a0514 !important;
-            color: #f1e9ff !important;
-        }
-        html[data-concept="6"] .heading-font {
-            font-family: var(--ja-heading);
-            letter-spacing: -0.04em;
-        }
+      /* ========== Concept 6 — Prism (glass / bioluminescent) ========== */
+      html[data-concept="6"] {
+        --ja-heading: "Space Grotesk", system-ui, sans-serif;
+        --ja-body: "Inter", system-ui, sans-serif;
+      }
+      html[data-concept="6"] body {
+        font-family: var(--ja-body);
+        background-color: #0a0514 !important;
+        color: #f1e9ff !important;
+      }
+      html[data-concept="6"] .heading-font {
+        font-family: var(--ja-heading);
+        letter-spacing: -0.04em;
+      }
 
-        html[data-concept="6"] .ja-nav {
-            background: rgba(18, 8, 40, 0.55) !important;
-            border-bottom: 1px solid rgba(167, 139, 250, 0.35) !important;
-            backdrop-filter: blur(18px) saturate(1.4);
-        }
-        html[data-concept="6"] .ja-nav-mobile {
-            background: rgba(12, 5, 24, 0.96) !important;
-            border-top-color: rgba(56, 189, 248, 0.25) !important;
-        }
-        html[data-concept="6"] .nav-link:hover { color: #7dd3fc !important; transform: translateY(-1px); }
+      html[data-concept="6"] .ja-nav {
+        background: rgba(18, 8, 40, 0.55) !important;
+        border-bottom: 1px solid rgba(167, 139, 250, 0.35) !important;
+        backdrop-filter: blur(18px) saturate(1.4);
+      }
+      html[data-concept="6"] .ja-nav-mobile {
+        background: rgba(12, 5, 24, 0.96) !important;
+        border-top-color: rgba(56, 189, 248, 0.25) !important;
+      }
+      html[data-concept="6"] .nav-link:hover {
+        color: #7dd3fc !important;
+        transform: translateY(-1px);
+      }
 
-        html[data-concept="6"] .ja-hero.hero-bg {
-            background-image:
-                radial-gradient(ellipse 120% 80% at 50% 100%, rgba(167, 139, 250, 0.35) 0%, transparent 55%),
-                linear-gradient(160deg, rgba(8, 47, 73, 0.75) 0%, rgba(88, 28, 135, 0.55) 45%, rgba(10, 5, 20, 0.92) 100%),
-                url('8A6574E0-53F8-42E2-B7A0-5FFF31401846.jpg');
-            background-size: cover, cover, cover;
-            background-position: center, center, center;
-        }
+      html[data-concept="6"] .ja-hero.hero-bg {
+        background-image:
+          radial-gradient(
+            ellipse 120% 80% at 50% 100%,
+            rgba(167, 139, 250, 0.35) 0%,
+            transparent 55%
+          ),
+          linear-gradient(
+            160deg,
+            rgba(8, 47, 73, 0.75) 0%,
+            rgba(88, 28, 135, 0.55) 45%,
+            rgba(10, 5, 20, 0.92) 100%
+          ),
+          url("8A6574E0-53F8-42E2-B7A0-5FFF31401846.jpg");
+        background-size: cover, cover, cover;
+        background-position: center, center, center;
+      }
 
-        html[data-concept="6"] #about { background-color: #150a28 !important; }
-        html[data-concept="6"] #join {
-            background: linear-gradient(to bottom, #150a28, #0a0514) !important;
-        }
-        html[data-concept="6"] #mission { background-color: #0a0514 !important; }
-        html[data-concept="6"] .ja-footer {
-            background-color: rgba(8, 3, 18, 0.92) !important;
-            border-top-color: rgba(56, 189, 248, 0.2) !important;
-            backdrop-filter: blur(12px);
-        }
+      html[data-concept="6"] #about {
+        background-color: #150a28 !important;
+      }
+      html[data-concept="6"] #join {
+        background: linear-gradient(to bottom, #150a28, #0a0514) !important;
+      }
+      html[data-concept="6"] #mission {
+        background-color: #0a0514 !important;
+      }
+      html[data-concept="6"] .ja-footer {
+        background-color: rgba(8, 3, 18, 0.92) !important;
+        border-top-color: rgba(56, 189, 248, 0.2) !important;
+        backdrop-filter: blur(12px);
+      }
 
-        html[data-concept="6"] .text-white\/80,
-        html[data-concept="6"] .text-white\/70,
-        html[data-concept="6"] .text-white\/50 { color: rgba(226, 232, 240, 0.7) !important; }
+      html[data-concept="6"] .text-white\/80,
+      html[data-concept="6"] .text-white\/70,
+      html[data-concept="6"] .text-white\/50 {
+        color: rgba(226, 232, 240, 0.7) !important;
+      }
 
-        html[data-concept="6"] .ja-accent { color: #e879f9 !important; }
-        html[data-concept="6"] .ja-btn-primary {
-            background: linear-gradient(135deg, #38bdf8 0%, #a78bfa 100%) !important;
-            color: #0a0514 !important;
-            border-radius: 9999px !important;
-            box-shadow: 0 0 24px rgba(56, 189, 248, 0.35), 0 0 40px rgba(167, 139, 250, 0.25) !important;
-        }
-        html[data-concept="6"] .ja-btn-primary:hover {
-            filter: brightness(1.08);
-            box-shadow: 0 0 32px rgba(56, 189, 248, 0.45), 0 0 48px rgba(232, 121, 249, 0.3) !important;
-        }
-        html[data-concept="6"] .ja-btn-outline {
-            border-color: rgba(167, 139, 250, 0.5) !important;
-            border-radius: 9999px !important;
-            background: rgba(255, 255, 255, 0.04) !important;
-            backdrop-filter: blur(8px);
-        }
-        html[data-concept="6"] .ja-social a:hover { color: #7dd3fc !important; }
+      html[data-concept="6"] .ja-accent {
+        color: #e879f9 !important;
+      }
+      html[data-concept="6"] .ja-btn-primary {
+        background: linear-gradient(
+          135deg,
+          #38bdf8 0%,
+          #a78bfa 100%
+        ) !important;
+        color: #0a0514 !important;
+        border-radius: 9999px !important;
+        box-shadow:
+          0 0 24px rgba(56, 189, 248, 0.35),
+          0 0 40px rgba(167, 139, 250, 0.25) !important;
+      }
+      html[data-concept="6"] .ja-btn-primary:hover {
+        filter: brightness(1.08);
+        box-shadow:
+          0 0 32px rgba(56, 189, 248, 0.45),
+          0 0 48px rgba(232, 121, 249, 0.3) !important;
+      }
+      html[data-concept="6"] .ja-btn-outline {
+        border-color: rgba(167, 139, 250, 0.5) !important;
+        border-radius: 9999px !important;
+        background: rgba(255, 255, 255, 0.04) !important;
+        backdrop-filter: blur(8px);
+      }
+      html[data-concept="6"] .ja-social a:hover {
+        color: #7dd3fc !important;
+      }
 
-        html[data-concept="6"] #mission img {
-            border-radius: 1.5rem !important;
-            box-shadow:
-                0 0 0 1px rgba(167, 139, 250, 0.25),
-                0 0 40px rgba(56, 189, 248, 0.2),
-                0 24px 50px rgba(0, 0, 0, 0.55) !important;
-        }
-        html[data-concept="6"] .image-card img {
-            box-shadow:
-                0 0 0 1px rgba(56, 189, 248, 0.2),
-                0 0 28px rgba(167, 139, 250, 0.15),
-                0 20px 45px rgba(0, 0, 0, 0.5) !important;
-        }
+      html[data-concept="6"] #mission img {
+        border-radius: 1.5rem !important;
+        box-shadow:
+          0 0 0 1px rgba(167, 139, 250, 0.25),
+          0 0 40px rgba(56, 189, 248, 0.2),
+          0 24px 50px rgba(0, 0, 0, 0.55) !important;
+      }
+      html[data-concept="6"] .image-card img {
+        box-shadow:
+          0 0 0 1px rgba(56, 189, 248, 0.2),
+          0 0 28px rgba(167, 139, 250, 0.15),
+          0 20px 45px rgba(0, 0, 0, 0.5) !important;
+      }
 
-        html[data-concept="6"] .ja-concept-panel {
-            background: rgba(24, 12, 48, 0.72);
-            border: 1px solid rgba(167, 139, 250, 0.35);
-            color: #ede9fe;
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5), 0 0 32px rgba(56, 189, 248, 0.12);
-        }
-        html[data-concept="6"] .ja-concept-panel button { background: rgba(255, 255, 255, 0.06); color: rgba(237, 233, 254, 0.82); }
-        html[data-concept="6"] .ja-concept-panel button.is-active {
-            background: rgba(56, 189, 248, 0.18);
-            border-color: rgba(232, 121, 249, 0.45);
-            color: #f5f3ff;
-        }
+      html[data-concept="6"] .ja-concept-panel {
+        background: rgba(24, 12, 48, 0.72);
+        border: 1px solid rgba(167, 139, 250, 0.35);
+        color: #ede9fe;
+        box-shadow:
+          0 12px 48px rgba(0, 0, 0, 0.5),
+          0 0 32px rgba(56, 189, 248, 0.12);
+      }
+      html[data-concept="6"] .ja-concept-panel button {
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba(237, 233, 254, 0.82);
+      }
+      html[data-concept="6"] .ja-concept-panel button.is-active {
+        background: rgba(56, 189, 248, 0.18);
+        border-color: rgba(232, 121, 249, 0.45);
+        color: #f5f3ff;
+      }
 
-        /* Below md: nav in normal flow (overrides any future concept rule that fixes .ja-nav) */
-        @media (max-width: 767px) {
-            html[data-concept] .ja-nav { position: relative !important; }
+      /* Below md: nav in normal flow (overrides any future concept rule that fixes .ja-nav) */
+      @media (max-width: 767px) {
+        html[data-concept] .ja-nav {
+          position: relative !important;
         }
+      }
     </style>
-</head>
-<body class="bg-zinc-950 text-white overflow-x-hidden">
-    <nav class="ja-nav relative md:fixed top-0 w-full z-50 bg-zinc-950/90 backdrop-blur-md border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <span class="heading-font text-2xl font-semibold tracking-tight">Jintae Aquarium</span>
-            </div>
-
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-                <a href="#about" class="nav-link">About</a>
-                <a href="#join" class="nav-link">Join</a>
-                <a href="#mission" class="nav-link">Mission</a>
-            </div>
-
-            <button id="menu-btn" type="button" class="md:hidden text-3xl focus:outline-none" aria-label="Menu">
-                <i class="fas fa-bars"></i>
-            </button>
+  </head>
+  <body class="bg-zinc-950 text-white overflow-x-hidden">
+    <nav
+      class="ja-nav relative md:fixed top-0 w-full z-50 bg-zinc-950/90 backdrop-blur-md border-b border-white/10"
+    >
+      <div
+        class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center"
+      >
+        <div class="flex items-center gap-3">
+          <span class="heading-font text-2xl font-semibold tracking-tight">
+            Jintae Aquarium
+          </span>
         </div>
 
-        <div id="mobile-menu" class="ja-nav-mobile mobile-menu hidden md:hidden bg-zinc-950 border-t border-white/10 py-6">
-            <div class="flex flex-col items-center gap-6 text-lg font-medium">
-                <a href="#about" class="nav-link mobile-link">About</a>
-                <a href="#join" class="nav-link mobile-link">Join</a>
-                <a href="#mission" class="nav-link mobile-link">Mission</a>
-            </div>
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+          <a href="#about" class="nav-link">About</a>
+          <a href="#join" class="nav-link">Join</a>
+          <a href="#mission" class="nav-link">Mission</a>
         </div>
+
+        <button
+          id="menu-btn"
+          type="button"
+          class="md:hidden text-3xl focus:outline-none"
+          aria-label="Menu"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+
+      <div
+        id="mobile-menu"
+        class="ja-nav-mobile mobile-menu hidden md:hidden bg-zinc-950 border-t border-white/10 py-6"
+      >
+        <div class="flex flex-col items-center gap-6 text-lg font-medium">
+          <a href="#about" class="nav-link mobile-link">About</a>
+          <a href="#join" class="nav-link mobile-link">Join</a>
+          <a href="#mission" class="nav-link mobile-link">Mission</a>
+        </div>
+      </div>
     </nav>
 
-    <section class="ja-hero hero-bg min-h-screen flex items-center relative pt-0 md:pt-16 pb-20 md:pb-12">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h1 class="heading-font text-5xl sm:text-6xl md:text-7xl font-bold leading-tight mb-6 tracking-tighter">
-                100% Automation of Aquarium Care
-            </h1>
-            <p class="text-lg sm:text-xl md:text-2xl text-white/80 max-w-lg mx-auto mb-10">
-                Imagine your aquarium at your place doesn't need your constant attention and effort.
-                Our company aims to achieve it through technology.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#join"
-                   class="ja-btn-primary px-10 py-5 bg-cyan-400 hover:bg-cyan-300 text-zinc-950 font-semibold rounded-3xl text-lg transition-all flex items-center justify-center gap-3 group">
-                    Join the Team
-                    <i class="fas fa-arrow-right group-active:translate-x-2 transition"></i>
-                </a>
-                <a href="#mission"
-                   class="ja-btn-outline px-10 py-5 border border-white/30 hover:border-white/60 font-medium rounded-3xl text-lg transition-all">
-                    Learn Our Story
-                </a>
-            </div>
+    <section
+      class="ja-hero hero-bg min-h-screen flex items-center relative pt-0 md:pt-16 pb-20 md:pb-12"
+    >
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <h1
+          class="heading-font text-5xl sm:text-6xl md:text-7xl font-bold leading-tight mb-6 tracking-tighter"
+        >
+          100% Automation of Aquarium Care
+        </h1>
+        <p
+          class="text-lg sm:text-xl md:text-2xl text-white/80 max-w-lg mx-auto mb-10"
+        >
+          Imagine your aquarium at your place doesn't need your constant
+          attention and effort. Our company aims to achieve it through
+          technology.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="#join"
+            class="ja-btn-primary px-10 py-5 bg-cyan-400 hover:bg-cyan-300 text-zinc-950 font-semibold rounded-3xl text-lg transition-all flex items-center justify-center gap-3 group"
+          >
+            Join the Team
+            <i
+              class="fas fa-arrow-right group-active:translate-x-2 transition"
+            ></i>
+          </a>
+          <a
+            href="#mission"
+            class="ja-btn-outline px-10 py-5 border border-white/30 hover:border-white/60 font-medium rounded-3xl text-lg transition-all"
+          >
+            Learn Our Story
+          </a>
         </div>
+      </div>
 
-        <div class="absolute bottom-8 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/50 text-[10px] md:text-xs tracking-[2px] md:tracking-widest">
-            <div class="mb-1.5 md:mb-2 text-center leading-tight">SCROLL TO DISCOVER</div>
-            <i class="fas fa-chevron-down animate-bounce text-lg"></i>
+      <div
+        class="absolute bottom-8 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/50 text-[10px] md:text-xs tracking-[2px] md:tracking-widest"
+      >
+        <div class="mb-1.5 md:mb-2 text-center leading-tight">
+          SCROLL TO DISCOVER
         </div>
+        <i class="fas fa-chevron-down animate-bounce text-lg"></i>
+      </div>
     </section>
 
     <section id="about" class="py-24 bg-zinc-900">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                <div>
-                    <span class="ja-accent text-cyan-400 text-sm font-medium tracking-widest">OUR STORY</span>
-                    <h2 class="heading-font text-4xl md:text-5xl font-semibold leading-tight mt-3 mb-8">
-                        Beautiful Glassbox.<br>Without any effort.
-                    </h2>
-                    <div class="prose prose-invert text-lg text-white/70">
-                        <p class="mb-6">
-                            Aquariums are some of the most stunningly beautiful objects we can bring indoors. However, they require good grasp of aquarium knowledge and experience, and constant effort and attention.
-                        </p>
-                        <p>
-                            Our company, Jintae Aquarium, aims to achieve aquariums that require no maintenance at all. We will develop technological systems to do so.
-                        </p>
-                    </div>
-                </div>
-                <div class="relative">
-                    <div class="aspect-video bg-zinc-800 rounded-3xl overflow-hidden">
-                        <img src="e3d76415-7229-44df-9147-5ed84144e41b.jpg"
-                             alt="Beautiful modern aquarium"
-                             class="w-full h-full object-cover">
-                    </div>
-                    <p class="text-white/50 text-sm mt-4 text-center">
-                        An example image made by AI
-                    </p>
-                </div>
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+          <div>
+            <span
+              class="ja-accent text-cyan-400 text-sm font-medium tracking-widest"
+            >
+              OUR STORY
+            </span>
+            <h2
+              class="heading-font text-4xl md:text-5xl font-semibold leading-tight mt-3 mb-8"
+            >
+              Beautiful Glassbox.
+              <br />
+              Without any effort.
+            </h2>
+            <div class="prose prose-invert text-lg text-white/70">
+              <p class="mb-6">
+                Aquariums are some of the most stunningly beautiful objects we
+                can bring indoors. However, they require good grasp of aquarium
+                knowledge and experience, and constant effort and attention.
+              </p>
+              <p>
+                Our company, Jintae Aquarium, aims to achieve aquariums that
+                require no maintenance at all. We will develop technological
+                systems to do so.
+              </p>
             </div>
+          </div>
+          <div class="relative">
+            <div class="aspect-video bg-zinc-800 rounded-3xl overflow-hidden">
+              <img
+                src="e3d76415-7229-44df-9147-5ed84144e41b.jpg"
+                alt="Beautiful modern aquarium"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <p class="text-white/50 text-sm mt-4 text-center">
+              An example image made by AI
+            </p>
+          </div>
         </div>
+      </div>
     </section>
 
     <section id="join" class="py-24 bg-gradient-to-b from-zinc-900 to-black">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="max-w-2xl mx-auto text-center">
-                <h2 class="heading-font text-5xl font-semibold mb-6">Join Our Team!</h2>
-                <p class="text-xl text-white/70 mb-10">
-                    Nobody has ever achieved full-automation of an aquarium; our company will be the first.<br><br>
-                    Send an email to:
-                    <a href="mailto:hiring@jintaeaquarium.com"
-                       class="ja-accent text-cyan-400 hover:underline">hiring@jintaeaquarium.com</a>
-                </p>
-                <div class="relative mb-12 rounded-3xl overflow-hidden">
-                    <img src="c4f42e64-34b3-4b39-ad38-02e6ea83cd8a.jpg"
-                         alt="Join the Jintae Aquarium Team"
-                         class="w-full h-auto max-h-[420px] object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                </div>
-                <p class="text-white/50 text-sm mt-4 text-center">
-                    An example image made by AI
-                </p>
-            </div>
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="max-w-2xl mx-auto text-center">
+          <h2 class="heading-font text-5xl font-semibold mb-6">
+            Join Our Team!
+          </h2>
+          <p class="text-xl text-white/70 mb-10">
+            Nobody has ever achieved full-automation of an aquarium; our company
+            will be the first.
+            <br />
+            <br />
+            Send an email to:
+            <a
+              href="mailto:hiring@jintaeaquarium.com"
+              class="ja-accent text-cyan-400 hover:underline"
+            >
+              hiring@jintaeaquarium.com
+            </a>
+          </p>
+          <div class="relative mb-12 rounded-3xl overflow-hidden">
+            <img
+              src="c4f42e64-34b3-4b39-ad38-02e6ea83cd8a.jpg"
+              alt="Join the Jintae Aquarium Team"
+              class="w-full h-auto max-h-[420px] object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"
+            ></div>
+          </div>
+          <p class="text-white/50 text-sm mt-4 text-center">
+            An example image made by AI
+          </p>
         </div>
+      </div>
     </section>
 
     <section id="mission" class="py-24 bg-black relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <div class="lg:col-span-3 space-y-6">
-                    <div class="image-card group">
-                        <img src="123123.png"
-                             alt="Crystal clear aquarium"
-                             class="w-full h-[280px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105">
-                    </div>
-                    <div class="image-card group">
-                        <img src="20150131_190906.jpg"
-                             alt="Colorful fish"
-                             class="w-full h-[220px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-150">
-                    </div>
-                    <div class="image-card group">
-                        <img src="IMG_2317.jpeg"
-                             alt="Modern aquarium interior"
-                             class="w-full h-[260px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-300">
-                    </div>
-                    <div class="image-card group">
-                        <img src="P1040475.JPG"
-                             alt="Peaceful underwater scene"
-                             class="w-full h-[240px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-500">
-                    </div>
-                </div>
-
-                <div class="lg:col-span-6 text-center">
-                    <div class="max-w-2xl mx-auto">
-                        <h2 class="heading-font text-5xl md:text-6xl font-light leading-tight tracking-tight">
-                            Our technology should let anyone own an aquarium as though it is a beautiful painting on the wall.
-                        </h2>
-                        <p class="mt-10 text-lg md:text-xl text-white/70 leading-relaxed">
-                            No weekly water changes. No filter cleaning. No worrying about fish health.<br>
-                            Just pure enjoyment of nature’s serenity in your home — every single day.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-3 space-y-6">
-                    <div class="image-card group">
-                        <img src="IMG_3918.jpeg"
-                             alt="Vibrant coral reef aquarium"
-                             class="w-full h-[250px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105">
-                    </div>
-                    <div class="image-card group">
-                        <img src="P1070133.JPG"
-                             alt="Elegant home aquarium"
-                             class="w-full h-[290px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-200">
-                    </div>
-                    <div class="image-card group">
-                        <img src="IMG_2323.jpeg"
-                             alt="Serene fish swimming"
-                             class="w-full h-[230px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-400">
-                    </div>
-                    <div class="image-card group">
-                        <img src="20150131_190858.jpg"
-                             alt="Luxury automated aquarium"
-                             class="w-full h-[270px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-600">
-                    </div>
-                </div>
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-3 space-y-6">
+            <div class="image-card group">
+              <img
+                src="123123.png"
+                alt="Crystal clear aquarium"
+                class="w-full h-[280px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105"
+              />
             </div>
+            <div class="image-card group">
+              <img
+                src="20150131_190906.jpg"
+                alt="Colorful fish"
+                class="w-full h-[220px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-150"
+              />
+            </div>
+            <div class="image-card group">
+              <img
+                src="IMG_2317.jpeg"
+                alt="Modern aquarium interior"
+                class="w-full h-[260px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-300"
+              />
+            </div>
+            <div class="image-card group">
+              <img
+                src="P1040475.JPG"
+                alt="Peaceful underwater scene"
+                class="w-full h-[240px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-500"
+              />
+            </div>
+          </div>
+
+          <div class="lg:col-span-6 text-center">
+            <div class="max-w-2xl mx-auto">
+              <h2
+                class="heading-font text-5xl md:text-6xl font-light leading-tight tracking-tight"
+              >
+                Our technology should let anyone own an aquarium as though it is
+                a beautiful painting on the wall.
+              </h2>
+              <p class="mt-10 text-lg md:text-xl text-white/70 leading-relaxed">
+                No weekly water changes. No filter cleaning. No worrying about
+                fish health.
+                <br />
+                Just pure enjoyment of nature’s serenity in your home — every
+                single day.
+              </p>
+            </div>
+          </div>
+
+          <div class="lg:col-span-3 space-y-6">
+            <div class="image-card group">
+              <img
+                src="IMG_3918.jpeg"
+                alt="Vibrant coral reef aquarium"
+                class="w-full h-[250px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105"
+              />
+            </div>
+            <div class="image-card group">
+              <img
+                src="P1070133.JPG"
+                alt="Elegant home aquarium"
+                class="w-full h-[290px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-200"
+              />
+            </div>
+            <div class="image-card group">
+              <img
+                src="IMG_2323.jpeg"
+                alt="Serene fish swimming"
+                class="w-full h-[230px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-400"
+              />
+            </div>
+            <div class="image-card group">
+              <img
+                src="20150131_190858.jpg"
+                alt="Luxury automated aquarium"
+                class="w-full h-[270px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-600"
+              />
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <footer class="ja-footer bg-black py-16 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-                <div class="flex items-center gap-3">
-                    <span class="heading-font text-2xl">Jintae Aquarium</span>
-                </div>
-                <div class="text-white/40 text-sm text-center md:text-right">
-                    © 2026 Jintae Aquarium Co.<br>
-                </div>
-                <div class="ja-social flex gap-6 text-2xl">
-                    <a href="#" class="hover:text-cyan-400 transition"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="hover:text-cyan-400 transition"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
+      <div class="max-w-7xl mx-auto px-6">
+        <div
+          class="flex flex-col md:flex-row justify-between items-center gap-8"
+        >
+          <div class="flex items-center gap-3">
+            <span class="heading-font text-2xl">Jintae Aquarium</span>
+          </div>
+          <div class="text-white/40 text-sm text-center md:text-right">
+            © 2026 Jintae Aquarium Co.
+            <br />
+          </div>
+          <div class="ja-social flex gap-6 text-2xl">
+            <a href="#" class="hover:text-cyan-400 transition">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="hover:text-cyan-400 transition">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
         </div>
+      </div>
     </footer>
 
-    <div class="ja-concept-panel" id="concept-panel" role="region" aria-label="Visual concept switcher">
-        <div class="mb-1.5 font-semibold uppercase tracking-wider opacity-90">Look</div>
-        <div class="ja-concept-chips">
-            <button type="button" data-ja-concept="1" title="Abyss: cyan on deep zinc">1 Abyss</button>
-            <button type="button" data-ja-concept="2" title="Observatory: lime on slate">2 Lab</button>
-            <button type="button" data-ja-concept="3" title="Atelier: gold on warm dark">3 Gallery</button>
-            <button type="button" data-ja-concept="4" title="Fjord: Nordic cool minimal">4 Fjord</button>
-            <button type="button" data-ja-concept="5" title="Block: brutalist mono contrast">5 Block</button>
-            <button type="button" data-ja-concept="6" title="Prism: glass neon glow">6 Prism</button>
-        </div>
-        <p class="opacity-60 text-[10px] leading-snug">Saved in this browser.</p>
+    <div
+      class="ja-concept-panel"
+      id="concept-panel"
+      role="region"
+      aria-label="Visual concept switcher"
+    >
+      <div class="mb-1.5 font-semibold uppercase tracking-wider opacity-90">
+        Look
+      </div>
+      <div class="ja-concept-chips">
+        <button
+          type="button"
+          data-ja-concept="1"
+          title="Abyss: cyan on deep zinc"
+        >
+          1 Abyss
+        </button>
+        <button
+          type="button"
+          data-ja-concept="2"
+          title="Observatory: lime on slate"
+        >
+          2 Lab
+        </button>
+        <button
+          type="button"
+          data-ja-concept="3"
+          title="Atelier: gold on warm dark"
+        >
+          3 Gallery
+        </button>
+        <button
+          type="button"
+          data-ja-concept="4"
+          title="Fjord: Nordic cool minimal"
+        >
+          4 Fjord
+        </button>
+        <button
+          type="button"
+          data-ja-concept="5"
+          title="Block: brutalist mono contrast"
+        >
+          5 Block
+        </button>
+        <button
+          type="button"
+          data-ja-concept="6"
+          title="Prism: glass neon glow"
+        >
+          6 Prism
+        </button>
+      </div>
+      <p class="opacity-60 text-[10px] leading-snug">Saved in this browser.</p>
     </div>
 
     <script>
-        (function () {
-            const LS_KEY = 'ja-concept';
-            const root = document.documentElement;
-            const valid = new Set(['1', '2', '3', '4', '5', '6']);
+      (function () {
+        const LS_KEY = "ja-concept";
+        const root = document.documentElement;
+        const valid = new Set(["1", "2", "3", "4", "5", "6"]);
 
-            function applyConcept(id) {
-                if (!valid.has(id)) id = '1';
-                root.setAttribute('data-concept', id);
-                try { localStorage.setItem(LS_KEY, id); } catch (e) { /* ignore */ }
-                document.querySelectorAll('#concept-panel [data-ja-concept]').forEach((btn) => {
-                    btn.classList.toggle('is-active', btn.getAttribute('data-ja-concept') === id);
-                });
+        function applyConcept(id) {
+          if (!valid.has(id)) id = "1";
+          root.setAttribute("data-concept", id);
+          try {
+            localStorage.setItem(LS_KEY, id);
+          } catch (e) {
+            /* ignore */
+          }
+          document
+            .querySelectorAll("#concept-panel [data-ja-concept]")
+            .forEach((btn) => {
+              btn.classList.toggle(
+                "is-active",
+                btn.getAttribute("data-ja-concept") === id,
+              );
+            });
+        }
+
+        let stored = "1";
+        try {
+          stored = localStorage.getItem(LS_KEY) || "1";
+        } catch (e) {
+          /* ignore */
+        }
+        applyConcept(valid.has(stored) ? stored : "1");
+
+        document
+          .getElementById("concept-panel")
+          .addEventListener("click", (e) => {
+            const btn = e.target.closest("[data-ja-concept]");
+            if (!btn) return;
+            applyConcept(btn.getAttribute("data-ja-concept"));
+          });
+
+        const menuBtn = document.getElementById("menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        menuBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+          const icon = menuBtn.querySelector("i");
+          if (icon.classList.contains("fa-bars")) {
+            icon.classList.remove("fa-bars");
+            icon.classList.add("fa-times");
+          } else {
+            icon.classList.add("fa-bars");
+            icon.classList.remove("fa-times");
+          }
+        });
+
+        document.querySelectorAll(".mobile-link").forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+            const icon = menuBtn.querySelector("i");
+            icon.classList.add("fa-bars");
+            icon.classList.remove("fa-times");
+          });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            if (this.getAttribute("href") !== "#") {
+              e.preventDefault();
+              const target = document.querySelector(this.getAttribute("href"));
+              if (target) target.scrollIntoView({ behavior: "smooth" });
             }
+          });
+        });
 
-            let stored = '1';
-            try { stored = localStorage.getItem(LS_KEY) || '1'; } catch (e) { /* ignore */ }
-            applyConcept(valid.has(stored) ? stored : '1');
-
-            document.getElementById('concept-panel').addEventListener('click', (e) => {
-                const btn = e.target.closest('[data-ja-concept]');
-                if (!btn) return;
-                applyConcept(btn.getAttribute('data-ja-concept'));
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry, index) => {
+              if (entry.isIntersecting) {
+                setTimeout(
+                  () => entry.target.classList.add("visible"),
+                  index * 120,
+                );
+              }
             });
+          },
+          { threshold: 0.2, rootMargin: "-50px" },
+        );
 
-            const menuBtn = document.getElementById('menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-
-            menuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-                const icon = menuBtn.querySelector('i');
-                if (icon.classList.contains('fa-bars')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
-                    icon.classList.add('fa-bars');
-                    icon.classList.remove('fa-times');
-                }
-            });
-
-            document.querySelectorAll('.mobile-link').forEach((link) => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                    const icon = menuBtn.querySelector('i');
-                    icon.classList.add('fa-bars');
-                    icon.classList.remove('fa-times');
-                });
-            });
-
-            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-                anchor.addEventListener('click', function (e) {
-                    if (this.getAttribute('href') !== '#') {
-                        e.preventDefault();
-                        const target = document.querySelector(this.getAttribute('href'));
-                        if (target) target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            });
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => entry.target.classList.add('visible'), index * 120);
-                    }
-                });
-            }, { threshold: 0.2, rootMargin: '-50px' });
-
-            document.querySelectorAll('.image-card').forEach((card) => observer.observe(card));
-        })();
+        document
+          .querySelectorAll(".image-card")
+          .forEach((card) => observer.observe(card));
+      })();
     </script>
-</body>
+  </body>
 </html>
