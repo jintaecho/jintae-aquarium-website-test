@@ -17,6 +17,66 @@
     />
     <style>
       /* ----- Shared ----- */
+      html {
+        scroll-behavior: smooth;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .image-card,
+        .image-card img,
+        .ja-btn-primary,
+        .ja-btn-outline,
+        .mobile-menu,
+        .ja-scroll-hint,
+        .ja-scroll-hint i {
+          transition-duration: 0.01ms !important;
+          animation: none !important;
+        }
+        .image-card:hover img {
+          animation: none !important;
+        }
+      }
+
+      html[data-concept] body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+
+      .ja-hero {
+        isolation: isolate;
+        overflow: hidden;
+      }
+      .ja-hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        background:
+          radial-gradient(
+            ellipse 90% 55% at 50% 100%,
+            rgba(0, 0, 0, 0.15) 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            ellipse 70% 45% at 50% 0%,
+            rgba(0, 0, 0, 0.2) 0%,
+            transparent 50%
+          );
+      }
+      .ja-hero > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .ja-hero h1,
+      section .ja-section-title {
+        text-wrap: balance;
+      }
+
       .mobile-menu {
         transition:
           opacity 0.35s ease,
@@ -25,10 +85,13 @@
 
       .image-card {
         opacity: 0;
-        transform: translateY(40px);
+        transform: translateY(36px);
         transition:
-          opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
-          transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+          opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+        border-radius: 1.5rem;
+        overflow: hidden;
+        box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.35);
       }
       .image-card.visible {
         opacity: 1;
@@ -37,6 +100,7 @@
 
       .image-card img {
         box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+        transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
       }
 
       @keyframes ja-float {
@@ -45,17 +109,99 @@
           transform: translateY(0);
         }
         50% {
-          transform: translateY(-12px);
+          transform: translateY(-10px);
         }
       }
       .image-card:hover img {
-        animation: ja-float 4s ease-in-out infinite;
+        animation: ja-float 4.5s ease-in-out infinite;
       }
 
       .nav-link {
         transition:
           color 0.25s ease,
-          transform 0.25s ease;
+          transform 0.25s ease,
+          opacity 0.2s ease;
+      }
+      .nav-link:hover {
+        opacity: 1;
+      }
+
+      .ja-btn-primary,
+      .ja-btn-outline {
+        transition:
+          transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.25s ease,
+          filter 0.2s ease,
+          background-color 0.2s ease,
+          border-color 0.2s ease,
+          color 0.2s ease;
+      }
+      .ja-btn-primary:hover,
+      .ja-btn-outline:hover {
+        transform: translateY(-2px);
+      }
+      .ja-btn-primary:active,
+      .ja-btn-outline:active {
+        transform: translateY(0);
+      }
+      .ja-btn-primary:focus-visible,
+      .ja-btn-outline:focus-visible,
+      .nav-link:focus-visible,
+      .ja-concept-panel button:focus-visible,
+      #menu-btn:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.65);
+        outline-offset: 3px;
+      }
+
+      .ja-media-frame {
+        position: relative;
+        border-radius: 1.5rem;
+        padding: 1px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.18),
+          rgba(255, 255, 255, 0.04) 45%,
+          rgba(255, 255, 255, 0.08)
+        );
+        box-shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.15),
+          0 24px 48px -12px rgba(0, 0, 0, 0.45);
+      }
+      .ja-media-frame .ja-media-inner {
+        border-radius: calc(1.5rem - 1px);
+        overflow: hidden;
+      }
+
+      #mission {
+        position: relative;
+      }
+      #mission::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(
+          ellipse 65% 55% at 50% 45%,
+          rgba(255, 255, 255, 0.045) 0%,
+          transparent 65%
+        );
+      }
+      #mission > .max-w-7xl {
+        position: relative;
+        z-index: 1;
+      }
+
+      .ja-scroll-hint {
+        animation: ja-scroll-fade 2.2s ease-in-out infinite;
+      }
+      @keyframes ja-scroll-fade {
+        0%,
+        100% {
+          opacity: 0.55;
+        }
+        50% {
+          opacity: 1;
+        }
       }
 
       /* Concept switcher */
@@ -130,7 +276,12 @@
 
       html[data-concept="3"] .ja-hero.hero-bg {
         background-image:
-          linear-gradient(rgba(10, 61, 98, 0.75), rgba(10, 61, 98, 0.85)),
+          radial-gradient(
+            ellipse 85% 55% at 50% 100%,
+            rgba(34, 211, 238, 0.14) 0%,
+            transparent 58%
+          ),
+          linear-gradient(rgba(10, 61, 98, 0.72), rgba(8, 20, 40, 0.88)),
           url("8A6574E0-53F8-42E2-B7A0-5FFF31401846.jpg");
         background-size: cover;
         background-position: center;
@@ -142,9 +293,11 @@
       html[data-concept="3"] .ja-btn-primary {
         background-color: #22d3ee !important;
         color: #09090b !important;
+        box-shadow: 0 4px 28px rgba(34, 211, 238, 0.35);
       }
       html[data-concept="3"] .ja-btn-primary:hover {
         background-color: #67e8f9 !important;
+        box-shadow: 0 8px 36px rgba(103, 232, 249, 0.4);
       }
       html[data-concept="3"] .ja-social a:hover {
         color: #22d3ee !important;
@@ -299,10 +452,21 @@
 
       html[data-concept="1"] .ja-hero.hero-bg {
         background-image:
+          radial-gradient(
+            ellipse 110% 70% at 50% -15%,
+            rgba(212, 165, 116, 0.28) 0%,
+            transparent 52%
+          ),
+          radial-gradient(
+            ellipse 90% 50% at 80% 60%,
+            rgba(180, 120, 80, 0.08) 0%,
+            transparent 45%
+          ),
           linear-gradient(
             to bottom,
-            rgba(40, 32, 28, 0.55) 0%,
-            rgba(20, 17, 16, 0.88) 100%
+            rgba(48, 38, 32, 0.45) 0%,
+            rgba(24, 20, 18, 0.78) 42%,
+            rgba(15, 13, 11, 0.94) 100%
           ),
           url("8A6574E0-53F8-42E2-B7A0-5FFF31401846.jpg");
         background-size: cover;
@@ -336,9 +500,11 @@
         background-color: #d4a574 !important;
         color: #1a1412 !important;
         border-radius: 9999px !important;
+        box-shadow: 0 4px 28px rgba(212, 165, 116, 0.38);
       }
       html[data-concept="1"] .ja-btn-primary:hover {
         background-color: #e8c9a0 !important;
+        box-shadow: 0 10px 40px rgba(232, 201, 160, 0.42);
       }
       html[data-concept="1"] .ja-btn-outline {
         border-color: rgba(212, 165, 116, 0.45) !important;
@@ -508,6 +674,12 @@
         transform: none;
       }
 
+      html[data-concept="5"] .image-card {
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        overflow: visible;
+      }
+
       html[data-concept="5"] .ja-hero.hero-bg {
         background-image:
           linear-gradient(
@@ -583,6 +755,16 @@
         background: #facc15;
         border-color: #ffffff;
         color: #000000;
+      }
+
+      html[data-concept="5"] .ja-media-frame {
+        border-radius: 0;
+        padding: 3px;
+        background: #ffffff;
+        box-shadow: none;
+      }
+      html[data-concept="5"] .ja-media-frame .ja-media-inner {
+        border-radius: 0;
       }
 
       /* ========== Concept 6 — Prism (glass / bioluminescent) ========== */
@@ -726,27 +908,31 @@
   </head>
   <body class="bg-zinc-950 text-white overflow-x-hidden">
     <nav
-      class="ja-nav relative md:fixed top-0 w-full z-50 bg-zinc-950/90 backdrop-blur-md border-b border-white/10"
+      class="ja-nav relative md:fixed top-0 w-full z-50 bg-zinc-950/90 backdrop-blur-md border-b border-white/10 transition-shadow duration-500 md:shadow-[0_1px_0_rgba(255,255,255,0.04)]"
     >
       <div
-        class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center"
+        class="max-w-7xl mx-auto px-6 sm:px-8 py-4 md:py-5 flex justify-between items-center"
       >
-        <div class="flex items-center gap-3">
-          <span class="heading-font text-2xl font-semibold tracking-tight">
+        <div class="flex items-center gap-3 min-w-0">
+          <span
+            class="heading-font text-xl sm:text-2xl font-semibold tracking-tight truncate"
+          >
             Jintae Aquarium
           </span>
         </div>
 
-        <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-          <a href="#about" class="nav-link">About</a>
-          <a href="#join" class="nav-link">Join</a>
-          <a href="#mission" class="nav-link">Mission</a>
+        <div
+          class="hidden md:flex items-center gap-10 text-sm font-medium text-white/85"
+        >
+          <a href="#about" class="nav-link hover:text-white">About</a>
+          <a href="#join" class="nav-link hover:text-white">Join</a>
+          <a href="#mission" class="nav-link hover:text-white">Mission</a>
         </div>
 
         <button
           id="menu-btn"
           type="button"
-          class="md:hidden text-3xl focus:outline-none"
+          class="md:hidden text-2xl sm:text-3xl p-2 -mr-2 rounded-lg text-white/90 hover:text-white focus:outline-none transition-colors"
           aria-label="Menu"
         >
           <i class="fas fa-bars"></i>
@@ -765,235 +951,303 @@
       </div>
     </nav>
 
-    <section
-      class="ja-hero hero-bg min-h-screen flex items-center relative pt-0 md:pt-16 pb-20 md:pb-12"
-    >
-      <div class="max-w-4xl mx-auto px-6 text-center">
-        <h1
-          class="heading-font text-5xl sm:text-6xl md:text-7xl font-bold leading-tight mb-6 tracking-tighter"
-        >
-          100% Automation of Aquarium Care
-        </h1>
-        <p
-          class="text-lg sm:text-xl md:text-2xl text-white/80 max-w-lg mx-auto mb-10"
-        >
-          Imagine your aquarium at your place doesn't need your constant
-          attention and effort. Our company aims to achieve it through
-          technology.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="#join"
-            class="ja-btn-primary px-10 py-5 bg-cyan-400 hover:bg-cyan-300 text-zinc-950 font-semibold rounded-3xl text-lg transition-all flex items-center justify-center gap-3 group"
-          >
-            Join the Team
-            <i
-              class="fas fa-arrow-right group-active:translate-x-2 transition"
-            ></i>
-          </a>
-          <a
-            href="#mission"
-            class="ja-btn-outline px-10 py-5 border border-white/30 hover:border-white/60 font-medium rounded-3xl text-lg transition-all"
-          >
-            Learn Our Story
-          </a>
-        </div>
-      </div>
-
-      <div
-        class="absolute bottom-8 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/50 text-[10px] md:text-xs tracking-[2px] md:tracking-widest"
+    <main>
+      <section
+        class="ja-hero hero-bg min-h-[100svh] min-h-screen flex flex-col items-center justify-center relative pt-20 md:pt-24 pb-24 md:pb-16"
       >
-        <div class="mb-1.5 md:mb-2 text-center leading-tight">
-          SCROLL TO DISCOVER
+        <div class="max-w-4xl mx-auto px-6 sm:px-8 text-center w-full">
+          <h1
+            class="heading-font text-4xl sm:text-6xl md:text-7xl lg:text-[4.5rem] font-bold leading-[1.08] mb-7 md:mb-8 tracking-tight drop-shadow-[0_4px_48px_rgba(0,0,0,0.35)]"
+          >
+            100% Automation of Aquarium Care
+          </h1>
+          <p
+            class="text-base sm:text-xl md:text-2xl text-white/75 max-w-xl mx-auto mb-11 md:mb-12 leading-relaxed font-light"
+          >
+            Imagine your aquarium at your place doesn't need your constant
+            attention and effort. Our company aims to achieve it through
+            technology.
+          </p>
+          <div
+            class="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center items-stretch sm:items-center"
+          >
+            <a
+              href="#join"
+              class="ja-btn-primary px-10 py-4 sm:py-5 bg-cyan-400 hover:bg-cyan-300 text-zinc-950 font-semibold rounded-3xl text-base sm:text-lg shadow-lg shadow-black/20 flex items-center justify-center gap-3 group"
+            >
+              Join the Team
+              <i
+                class="fas fa-arrow-right text-sm group-hover:translate-x-1 transition-transform duration-300"
+              ></i>
+            </a>
+            <a
+              href="#mission"
+              class="ja-btn-outline px-10 py-4 sm:py-5 border border-white/30 hover:border-white/55 hover:bg-white/5 font-medium rounded-3xl text-base sm:text-lg backdrop-blur-sm"
+            >
+              Learn Our Story
+            </a>
+          </div>
         </div>
-        <i class="fas fa-chevron-down animate-bounce text-lg"></i>
-      </div>
-    </section>
 
-    <section id="about" class="py-24 bg-zinc-900">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="grid md:grid-cols-2 gap-16 items-center">
-          <div>
-            <span
-              class="ja-accent text-cyan-400 text-sm font-medium tracking-widest"
-            >
-              OUR STORY
-            </span>
-            <h2
-              class="heading-font text-4xl md:text-5xl font-semibold leading-tight mt-3 mb-8"
-            >
-              Beautiful Glassbox.
-              <br />
-              Without any effort.
-            </h2>
-            <div class="prose prose-invert text-lg text-white/70">
-              <p class="mb-6">
-                Aquariums are some of the most stunningly beautiful objects we
-                can bring indoors. However, they require good grasp of aquarium
-                knowledge and experience, and constant effort and attention.
-              </p>
-              <p>
-                Our company, Jintae Aquarium, aims to achieve aquariums that
-                require no maintenance at all. We will develop technological
-                systems to do so.
+        <div
+          class="ja-scroll-hint absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/45 text-[10px] md:text-xs tracking-[0.25em] md:tracking-[0.35em] uppercase font-medium"
+        >
+          <div class="mb-2 text-center leading-tight">Scroll</div>
+          <i
+            class="fas fa-chevron-down text-base opacity-80 animate-bounce"
+          ></i>
+        </div>
+      </section>
+
+      <section id="about" class="py-28 md:py-36 bg-zinc-900">
+        <div class="max-w-7xl mx-auto px-6 sm:px-8">
+          <div
+            class="grid md:grid-cols-2 gap-14 md:gap-20 lg:gap-24 items-center"
+          >
+            <div class="order-2 md:order-1">
+              <span
+                class="ja-accent text-cyan-400 text-xs sm:text-sm font-semibold tracking-[0.28em] uppercase"
+              >
+                Our story
+              </span>
+              <h2
+                class="ja-section-title heading-font text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-semibold leading-[1.15] mt-4 mb-8 text-white"
+              >
+                Beautiful glassbox.
+                <br />
+                <span class="text-white/90">Without any effort.</span>
+              </h2>
+              <div
+                class="space-y-6 text-base sm:text-lg text-white/70 leading-relaxed max-w-xl"
+              >
+                <p>
+                  Aquariums are some of the most stunningly beautiful objects we
+                  can bring indoors. However, they require good grasp of
+                  aquarium knowledge and experience, and constant effort and
+                  attention.
+                </p>
+                <p class="text-white/65">
+                  Our company, Jintae Aquarium, aims to achieve aquariums that
+                  require no maintenance at all. We will develop technological
+                  systems to do so.
+                </p>
+              </div>
+            </div>
+            <div class="relative order-1 md:order-2">
+              <div class="ja-media-frame">
+                <div class="ja-media-inner aspect-video bg-zinc-800">
+                  <img
+                    src="e3d76415-7229-44df-9147-5ed84144e41b.jpg"
+                    alt="Beautiful modern aquarium"
+                    class="w-full h-full object-cover scale-[1.02] hover:scale-100 transition-transform duration-[1.2s] ease-out"
+                  />
+                </div>
+              </div>
+              <p
+                class="text-white/40 text-xs sm:text-sm mt-5 text-center tracking-wide"
+              >
+                Example imagery (AI-assisted)
               </p>
             </div>
           </div>
-          <div class="relative">
-            <div class="aspect-video bg-zinc-800 rounded-3xl overflow-hidden">
-              <img
-                src="e3d76415-7229-44df-9147-5ed84144e41b.jpg"
-                alt="Beautiful modern aquarium"
-                class="w-full h-full object-cover"
-              />
+        </div>
+      </section>
+
+      <section
+        id="join"
+        class="py-28 md:py-36 bg-gradient-to-b from-zinc-900 via-zinc-950 to-black relative overflow-hidden"
+      >
+        <div
+          class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(34,211,238,0.06),transparent_55%)] opacity-80"
+          aria-hidden="true"
+        ></div>
+        <div class="max-w-5xl mx-auto px-6 sm:px-8 relative">
+          <div class="max-w-2xl mx-auto text-center">
+            <h2
+              class="ja-section-title heading-font text-4xl sm:text-5xl md:text-[3.25rem] font-semibold mb-7 md:mb-8 tracking-tight"
+            >
+              Join our team!
+            </h2>
+            <p
+              class="text-lg sm:text-xl text-white/70 mb-10 md:mb-12 leading-relaxed"
+            >
+              Nobody has ever achieved full-automation of an aquarium at the
+              production level; our company will be the first.
+              <br />
+              <br />
+              <span class="text-white/55 text-base sm:text-lg">
+                Send an email to
+              </span>
+              <br />
+              <a
+                href="mailto:hiring@jintaeaquarium.com"
+                class="ja-accent text-cyan-400 hover:text-cyan-300 font-medium text-lg sm:text-xl underline underline-offset-4 decoration-cyan-400/35 hover:decoration-cyan-300/70 transition-colors inline-block mt-1"
+              >
+                hiring@jintaeaquarium.com
+              </a>
+            </p>
+            <div class="ja-media-frame mb-4">
+              <div class="ja-media-inner relative">
+                <img
+                  src="c4f42e64-34b3-4b39-ad38-02e6ea83cd8a.jpg"
+                  alt="Join the Jintae Aquarium Team"
+                  class="w-full h-auto max-h-[min(420px,55vh)] object-cover scale-[1.02] hover:scale-100 transition-transform duration-[1.2s] ease-out"
+                />
+                <div
+                  class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent"
+                  aria-hidden="true"
+                ></div>
+              </div>
             </div>
-            <p class="text-white/50 text-sm mt-4 text-center">
-              An example image made by AI
+            <p
+              class="text-white/40 text-xs sm:text-sm mt-5 text-center tracking-wide"
+            >
+              Example imagery (AI-assisted)
             </p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="join" class="py-24 bg-gradient-to-b from-zinc-900 to-black">
-      <div class="max-w-5xl mx-auto px-6">
-        <div class="max-w-2xl mx-auto text-center">
-          <h2 class="heading-font text-5xl font-semibold mb-6">
-            Join Our Team!
-          </h2>
-          <p class="text-xl text-white/70 mb-10">
-            Nobody has ever achieved full-automation of an aquarium at the production level; our company
-            will be the first.
-            <br />
-            <br />
-            Send an email to:
-            <a
-              href="mailto:hiring@jintaeaquarium.com"
-              class="ja-accent text-cyan-400 hover:underline"
-            >
-              hiring@jintaeaquarium.com
-            </a>
-          </p>
-          <div class="relative mb-12 rounded-3xl overflow-hidden">
-            <img
-              src="c4f42e64-34b3-4b39-ad38-02e6ea83cd8a.jpg"
-              alt="Join the Jintae Aquarium Team"
-              class="w-full h-auto max-h-[420px] object-cover"
-            />
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"
-            ></div>
-          </div>
-          <p class="text-white/50 text-sm mt-4 text-center">
-            An example image made by AI
-          </p>
-        </div>
-      </div>
-    </section>
+      <section
+        id="mission"
+        class="py-28 md:py-36 bg-black relative overflow-hidden"
+      >
+        <div class="max-w-7xl mx-auto px-6 sm:px-8">
+          <div
+            class="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-16 xl:gap-20 items-center"
+          >
+            <div class="lg:col-span-3 space-y-7 lg:space-y-8">
+              <div class="image-card group">
+                <img
+                  src="123123.png"
+                  alt="Crystal clear aquarium"
+                  class="w-full h-[280px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105"
+                />
+              </div>
+              <div class="image-card group">
+                <img
+                  src="20150131_190906.jpg"
+                  alt="Colorful fish"
+                  class="w-full h-[220px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-150"
+                />
+              </div>
+              <div class="image-card group">
+                <img
+                  src="IMG_2317.jpeg"
+                  alt="Modern aquarium interior"
+                  class="w-full h-[260px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-300"
+                />
+              </div>
+              <div class="image-card group">
+                <img
+                  src="P1040475.JPG"
+                  alt="Peaceful underwater scene"
+                  class="w-full h-[240px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-500"
+                />
+              </div>
+            </div>
 
-    <section id="mission" class="py-24 bg-black relative overflow-hidden">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div class="lg:col-span-3 space-y-6">
-            <div class="image-card group">
-              <img
-                src="123123.png"
-                alt="Crystal clear aquarium"
-                class="w-full h-[280px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105"
-              />
+            <div class="lg:col-span-6 text-center py-6 lg:py-0">
+              <div class="max-w-2xl mx-auto px-2">
+                <p
+                  class="text-[11px] sm:text-xs uppercase tracking-[0.28em] text-white/40 mb-6 font-medium"
+                >
+                  Mission
+                </p>
+                <h2
+                  class="ja-section-title heading-font text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light leading-[1.12] tracking-tight text-white"
+                >
+                  Our technology should let anyone own an aquarium as though it
+                  is a beautiful painting on the wall.
+                </h2>
+                <p
+                  class="mt-10 md:mt-12 text-base sm:text-lg md:text-xl text-white/65 leading-relaxed max-w-xl mx-auto border-t border-white/10 pt-10"
+                >
+                  No weekly water changes. No filter cleaning. No worrying about
+                  fish health.
+                  <br />
+                  <span class="text-white/50">
+                    Just pure enjoyment of nature’s serenity in your home —
+                    every single day.
+                  </span>
+                </p>
+              </div>
             </div>
-            <div class="image-card group">
-              <img
-                src="20150131_190906.jpg"
-                alt="Colorful fish"
-                class="w-full h-[220px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-150"
-              />
-            </div>
-            <div class="image-card group">
-              <img
-                src="IMG_2317.jpeg"
-                alt="Modern aquarium interior"
-                class="w-full h-[260px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-300"
-              />
-            </div>
-            <div class="image-card group">
-              <img
-                src="P1040475.JPG"
-                alt="Peaceful underwater scene"
-                class="w-full h-[240px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-500"
-              />
-            </div>
-          </div>
 
-          <div class="lg:col-span-6 text-center">
-            <div class="max-w-2xl mx-auto">
-              <h2
-                class="heading-font text-5xl md:text-6xl font-light leading-tight tracking-tight"
-              >
-                Our technology should let anyone own an aquarium as though it is
-                a beautiful painting on the wall.
-              </h2>
-              <p class="mt-10 text-lg md:text-xl text-white/70 leading-relaxed">
-                No weekly water changes. No filter cleaning. No worrying about
-                fish health.
-                <br />
-                Just pure enjoyment of nature’s serenity in your home — every
-                single day.
-              </p>
-            </div>
-          </div>
-
-          <div class="lg:col-span-3 space-y-6">
-            <div class="image-card group">
-              <img
-                src="IMG_3918.jpeg"
-                alt="Vibrant coral reef aquarium"
-                class="w-full h-[250px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105"
-              />
-            </div>
-            <div class="image-card group">
-              <img
-                src="P1070133.JPG"
-                alt="Elegant home aquarium"
-                class="w-full h-[290px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-200"
-              />
-            </div>
-            <div class="image-card group">
-              <img
-                src="IMG_2323.jpeg"
-                alt="Serene fish swimming"
-                class="w-full h-[230px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-400"
-              />
-            </div>
-            <div class="image-card group">
-              <img
-                src="20150131_190858.jpg"
-                alt="Luxury automated aquarium"
-                class="w-full h-[270px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-600"
-              />
+            <div class="lg:col-span-3 space-y-7 lg:space-y-8">
+              <div class="image-card group">
+                <img
+                  src="IMG_3918.jpeg"
+                  alt="Vibrant coral reef aquarium"
+                  class="w-full h-[250px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105"
+                />
+              </div>
+              <div class="image-card group">
+                <img
+                  src="P1070133.JPG"
+                  alt="Elegant home aquarium"
+                  class="w-full h-[290px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-200"
+                />
+              </div>
+              <div class="image-card group">
+                <img
+                  src="IMG_2323.jpeg"
+                  alt="Serene fish swimming"
+                  class="w-full h-[230px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-400"
+                />
+              </div>
+              <div class="image-card group">
+                <img
+                  src="20150131_190858.jpg"
+                  alt="Luxury automated aquarium"
+                  class="w-full h-[270px] object-cover rounded-3xl shadow-2xl transition-all duration-700 group-hover:scale-105 delay-600"
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
 
-    <footer class="ja-footer bg-black py-16 border-t border-white/10">
-      <div class="max-w-7xl mx-auto px-6">
+    <footer
+      class="ja-footer bg-black py-20 md:py-24 border-t border-white/10 relative"
+    >
+      <div
+        class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"
+        aria-hidden="true"
+      ></div>
+      <div class="max-w-7xl mx-auto px-6 sm:px-8">
         <div
-          class="flex flex-col md:flex-row justify-between items-center gap-8"
+          class="flex flex-col md:flex-row justify-between items-center gap-10 md:gap-8"
         >
-          <div class="flex items-center gap-3">
-            <span class="heading-font text-2xl">Jintae Aquarium</span>
+          <div
+            class="flex flex-col items-center md:items-start gap-2 text-center md:text-left"
+          >
+            <span class="heading-font text-2xl md:text-3xl tracking-tight">
+              Jintae Aquarium
+            </span>
+            <span class="text-white/35 text-xs tracking-[0.2em] uppercase">
+              Designed in pursuit of calm
+            </span>
           </div>
-          <div class="text-white/40 text-sm text-center md:text-right">
+          <div
+            class="text-white/45 text-sm text-center md:text-right leading-relaxed"
+          >
             © 2026 Jintae Aquarium Co.
-            <br />
           </div>
-          <div class="ja-social flex gap-6 text-2xl">
-            <a href="#" class="hover:text-cyan-400 transition">
+          <div class="ja-social flex gap-7 text-2xl text-white/50">
+            <a
+              href="#"
+              class="p-2 -m-2 rounded-lg text-white/50 hover:text-cyan-400 transition-all duration-300 hover:scale-110"
+              aria-label="Instagram"
+            >
               <i class="fab fa-instagram"></i>
             </a>
-            <a href="#" class="hover:text-cyan-400 transition">
+            <a
+              href="#"
+              class="p-2 -m-2 rounded-lg text-white/50 hover:text-cyan-400 transition-all duration-300 hover:scale-110"
+              aria-label="YouTube"
+            >
               <i class="fab fa-youtube"></i>
             </a>
           </div>
