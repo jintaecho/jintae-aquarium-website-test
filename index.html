@@ -3,7 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jintae Aquarium</title>
+    <title>Jintae Aquarium — Make Water Changes Obsolete</title>
+    <meta
+      name="description"
+      content="Jintae Aquarium is building an aquarium filtration system robust enough to make water changes obsolete. Own an aquarium like you own a painting."
+    />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,6 +32,7 @@
         .image-card img,
         .ja-btn-primary,
         .ja-btn-outline,
+        .ja-card,
         .mobile-menu,
         .ja-scroll-hint,
         .ja-scroll-hint i {
@@ -43,6 +48,13 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;
+      }
+
+      /* Anchor jumps land below the fixed nav on desktop */
+      @media (min-width: 768px) {
+        main section[id] {
+          scroll-margin-top: 92px;
+        }
       }
 
       .ja-hero {
@@ -151,6 +163,22 @@
       #menu-btn:focus-visible {
         outline: 2px solid rgba(255, 255, 255, 0.65);
         outline-offset: 3px;
+      }
+
+      /* Neutral translucent card — adapts to every concept's dark ground */
+      .ja-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 1.25rem;
+        transition:
+          transform 0.25s ease,
+          border-color 0.25s ease,
+          background-color 0.25s ease;
+      }
+      .ja-card:hover {
+        transform: translateY(-3px);
+        border-color: rgba(255, 255, 255, 0.24);
+        background: rgba(255, 255, 255, 0.06);
       }
 
       .ja-media-frame {
@@ -368,8 +396,16 @@
       html[data-concept="2"] #about {
         background-color: #0f172a !important;
       }
+      html[data-concept="2"] #approach {
+        background-color: #0b1220 !important;
+      }
       html[data-concept="2"] #join {
-        background: linear-gradient(to bottom, #0f172a, #020617) !important;
+        background: linear-gradient(
+          to bottom,
+          #020617,
+          #0b1220 55%,
+          #020617
+        ) !important;
       }
       html[data-concept="2"] #mission {
         background-color: #020617 !important;
@@ -396,6 +432,9 @@
       }
       html[data-concept="2"] .ja-social a:hover {
         color: #bef264 !important;
+      }
+      html[data-concept="2"] .ja-card {
+        border-radius: 0.5rem;
       }
 
       html[data-concept="2"] #mission img {
@@ -476,8 +515,16 @@
       html[data-concept="1"] #about {
         background-color: #1c1816 !important;
       }
+      html[data-concept="1"] #approach {
+        background-color: #151211 !important;
+      }
       html[data-concept="1"] #join {
-        background: linear-gradient(to bottom, #1c1816, #0f0d0c) !important;
+        background: linear-gradient(
+          to bottom,
+          #0f0d0c,
+          #171310 55%,
+          #0f0d0c
+        ) !important;
       }
       html[data-concept="1"] #mission {
         background-color: #0f0d0c !important;
@@ -512,6 +559,12 @@
       }
       html[data-concept="1"] .ja-social a:hover {
         color: #d4a574 !important;
+      }
+      html[data-concept="1"] .ja-card {
+        border-color: rgba(212, 165, 116, 0.22);
+      }
+      html[data-concept="1"] .ja-card:hover {
+        border-color: rgba(212, 165, 116, 0.4);
       }
 
       html[data-concept="1"] #mission img {
@@ -580,8 +633,16 @@
       html[data-concept="4"] #about {
         background-color: #161e28 !important;
       }
+      html[data-concept="4"] #approach {
+        background-color: #131b24 !important;
+      }
       html[data-concept="4"] #join {
-        background: linear-gradient(to bottom, #161e28, #101820) !important;
+        background: linear-gradient(
+          to bottom,
+          #101820,
+          #17222d 55%,
+          #0e141c
+        ) !important;
       }
       html[data-concept="4"] #mission {
         background-color: #101820 !important;
@@ -614,6 +675,9 @@
       }
       html[data-concept="4"] .ja-social a:hover {
         color: #8fb8d4 !important;
+      }
+      html[data-concept="4"] .ja-card {
+        border-radius: 0.5rem;
       }
 
       html[data-concept="4"] #mission img {
@@ -695,8 +759,11 @@
       html[data-concept="5"] #about {
         background-color: #0a0a0a !important;
       }
+      html[data-concept="5"] #approach {
+        background-color: #050505 !important;
+      }
       html[data-concept="5"] #join {
-        background: linear-gradient(to bottom, #0a0a0a, #000000) !important;
+        background: #000000 !important;
       }
       html[data-concept="5"] #mission {
         background-color: #000000 !important;
@@ -726,6 +793,15 @@
       }
       html[data-concept="5"] .ja-social a:hover {
         color: #facc15 !important;
+      }
+      html[data-concept="5"] .ja-card {
+        border-radius: 0 !important;
+        border: 3px solid #ffffff !important;
+        background: #0a0a0a !important;
+      }
+      html[data-concept="5"] .ja-card:hover {
+        transform: none;
+        background: #111111 !important;
       }
 
       html[data-concept="5"] #mission img {
@@ -817,8 +893,16 @@
       html[data-concept="6"] #about {
         background-color: #150a28 !important;
       }
+      html[data-concept="6"] #approach {
+        background-color: #0f071e !important;
+      }
       html[data-concept="6"] #join {
-        background: linear-gradient(to bottom, #150a28, #0a0514) !important;
+        background: linear-gradient(
+          to bottom,
+          #0a0514,
+          #140a2e 55%,
+          #0a0514
+        ) !important;
       }
       html[data-concept="6"] #mission {
         background-color: #0a0514 !important;
@@ -864,6 +948,13 @@
       }
       html[data-concept="6"] .ja-social a:hover {
         color: #7dd3fc !important;
+      }
+      html[data-concept="6"] .ja-card {
+        border-color: rgba(167, 139, 250, 0.28);
+        backdrop-filter: blur(8px);
+      }
+      html[data-concept="6"] .ja-card:hover {
+        border-color: rgba(56, 189, 248, 0.4);
       }
 
       html[data-concept="6"] #mission img {
@@ -922,11 +1013,12 @@
         </div>
 
         <div
-          class="hidden md:flex items-center gap-10 text-sm font-medium text-white/85"
+          class="hidden md:flex items-center gap-8 text-sm font-medium text-white/85"
         >
-          <a href="#about" class="nav-link hover:text-white">About</a>
-          <a href="#join" class="nav-link hover:text-white">Join</a>
+          <a href="#about" class="nav-link hover:text-white">Problem</a>
+          <a href="#approach" class="nav-link hover:text-white">Approach</a>
           <a href="#mission" class="nav-link hover:text-white">Mission</a>
+          <a href="#join" class="nav-link hover:text-white">Join</a>
         </div>
 
         <button
@@ -944,9 +1036,10 @@
         class="ja-nav-mobile mobile-menu hidden md:hidden bg-zinc-950 border-t border-white/10 py-6"
       >
         <div class="flex flex-col items-center gap-6 text-lg font-medium">
-          <a href="#about" class="nav-link mobile-link">About</a>
-          <a href="#join" class="nav-link mobile-link">Join</a>
+          <a href="#about" class="nav-link mobile-link">Problem</a>
+          <a href="#approach" class="nav-link mobile-link">Approach</a>
           <a href="#mission" class="nav-link mobile-link">Mission</a>
+          <a href="#join" class="nav-link mobile-link">Join</a>
         </div>
       </div>
     </nav>
@@ -956,17 +1049,22 @@
         class="ja-hero hero-bg min-h-[100svh] min-h-screen flex flex-col items-center justify-center relative pt-20 md:pt-24 pb-24 md:pb-16"
       >
         <div class="max-w-4xl mx-auto px-6 sm:px-8 text-center w-full">
+          <p
+            class="ja-accent text-cyan-400 text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase mb-5 md:mb-6"
+          >
+            The pitch
+          </p>
           <h1
             class="heading-font text-4xl sm:text-6xl md:text-7xl lg:text-[4.5rem] font-bold leading-[1.08] mb-7 md:mb-8 tracking-tight drop-shadow-[0_4px_48px_rgba(0,0,0,0.35)]"
           >
-            The Future of Aquariums
+            Make water changes obsolete.
           </h1>
           <p
-            class="text-base sm:text-xl md:text-2xl text-white/75 max-w-xl mx-auto mb-11 md:mb-12 leading-relaxed font-light"
+            class="text-base sm:text-xl md:text-2xl text-white/75 max-w-2xl mx-auto mb-11 md:mb-12 leading-relaxed font-light"
           >
-            Imagine your aquarium at your place doesn't need your constant
-            attention and effort. Our company aims to achieve it through
-            technology.
+            Jintae Aquarium is building a filtration system robust enough that
+            an aquarium takes care of itself. No buckets, no siphons, no
+            chores&nbsp;&mdash; just glass, light, and life.
           </p>
           <div
             class="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center items-stretch sm:items-center"
@@ -975,16 +1073,16 @@
               href="#join"
               class="ja-btn-primary px-10 py-4 sm:py-5 bg-cyan-400 hover:bg-cyan-300 text-zinc-950 font-semibold rounded-3xl text-base sm:text-lg shadow-lg shadow-black/20 flex items-center justify-center gap-3 group"
             >
-              Join the Team
+              Join the team
               <i
                 class="fas fa-arrow-right text-sm group-hover:translate-x-1 transition-transform duration-300"
               ></i>
             </a>
             <a
-              href="#mission"
+              href="#about"
               class="ja-btn-outline px-10 py-4 sm:py-5 border border-white/30 hover:border-white/55 hover:bg-white/5 font-medium rounded-3xl text-base sm:text-lg backdrop-blur-sm"
             >
-              Learn Our Story
+              Read the pitch
             </a>
           </div>
         </div>
@@ -1008,28 +1106,29 @@
               <span
                 class="ja-accent text-cyan-400 text-xs sm:text-sm font-semibold tracking-[0.28em] uppercase"
               >
-                Our story
+                The problem
               </span>
               <h2
                 class="ja-section-title heading-font text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-semibold leading-[1.15] mt-4 mb-8 text-white"
               >
-                Beautiful glassbox.
+                Aquariums are stunning.
                 <br />
-                <span class="text-white/90">Without any effort.</span>
+                <span class="text-white/90">Owning one is a part-time job.</span>
               </h2>
               <div
                 class="space-y-6 text-base sm:text-lg text-white/70 leading-relaxed max-w-xl"
               >
                 <p>
-                  Aquariums are some of the most stunningly beautiful objects we
-                  can bring indoors. However, they require good grasp of
-                  aquarium knowledge and experience, and constant effort and
-                  attention.
+                  Every tank slowly pollutes itself. Fish waste breaks down into
+                  compounds a conventional filter can convert but never fully
+                  remove &mdash; so for a century, the fix has been the same:
+                  drain part of the tank and refill it. Every week. Forever.
                 </p>
                 <p class="text-white/65">
-                  Our company, Jintae Aquarium, aims to achieve aquariums that
-                  require no maintenance at all. We will develop technological
-                  systems to do so.
+                  That ritual of buckets, siphons, and test kits demands
+                  knowledge, time, and discipline. It's why most people who'd
+                  love an aquarium never start &mdash; and why so many who do
+                  eventually give up.
                 </p>
               </div>
             </div>
@@ -1053,57 +1152,75 @@
         </div>
       </section>
 
-      <section
-        id="join"
-        class="py-28 md:py-36 bg-gradient-to-b from-zinc-900 via-zinc-950 to-black relative overflow-hidden"
-      >
-        <div
-          class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(34,211,238,0.06),transparent_55%)] opacity-80"
-          aria-hidden="true"
-        ></div>
-        <div class="max-w-5xl mx-auto px-6 sm:px-8 relative">
-          <div class="max-w-2xl mx-auto text-center">
-            <h2
-              class="ja-section-title heading-font text-4xl sm:text-5xl md:text-[3.25rem] font-semibold mb-7 md:mb-8 tracking-tight"
+      <section id="approach" class="py-28 md:py-36 bg-zinc-950">
+        <div class="max-w-6xl mx-auto px-6 sm:px-8">
+          <div class="max-w-3xl mx-auto text-center mb-14 md:mb-16">
+            <span
+              class="ja-accent text-cyan-400 text-xs sm:text-sm font-semibold tracking-[0.28em] uppercase"
             >
-              Join our team!
+              Our approach
+            </span>
+            <h2
+              class="ja-section-title heading-font text-3xl sm:text-4xl md:text-5xl font-semibold leading-[1.15] mt-4 mb-6 text-white"
+            >
+              Finish the job the filter started.
             </h2>
             <p
-              class="text-lg sm:text-xl text-white/70 mb-10 md:mb-12 leading-relaxed"
+              class="text-base sm:text-lg text-white/70 leading-relaxed max-w-2xl mx-auto"
             >
-              Nobody has ever achieved full-automation of an aquarium at the
-              production level; our company will be the first.
-              <br />
-              <br />
-              <span class="text-white/55 text-base sm:text-lg">
-                Send an email to
-              </span>
-              <br />
-              <a
-                href="mailto:hiring@jintaeaquarium.com"
-                class="ja-accent text-cyan-400 hover:text-cyan-300 font-medium text-lg sm:text-xl underline underline-offset-4 decoration-cyan-400/35 hover:decoration-cyan-300/70 transition-colors inline-block mt-1"
+              A conventional filter converts waste; it doesn't remove it. The
+              end products keep accumulating, and the owner dilutes them by
+              hand, week after week. We're engineering a filtration system that
+              closes that loop entirely &mdash; so the water never needs
+              changing.
+            </p>
+          </div>
+          <div class="grid gap-5 md:gap-6 md:grid-cols-3">
+            <div class="ja-card p-7 sm:p-8">
+              <i
+                class="fas fa-wave-square ja-accent text-cyan-400 text-xl"
+                aria-hidden="true"
+              ></i>
+              <h3
+                class="heading-font text-xl sm:text-2xl font-semibold mt-5 mb-3 text-white"
               >
-                hiring@jintaeaquarium.com
-              </a>
-            </p>
-            <div class="ja-media-frame mb-4">
-              <div class="ja-media-inner relative">
-                <img
-                  src="c4f42e64-34b3-4b39-ad38-02e6ea83cd8a.jpg"
-                  alt="Join the Jintae Aquarium Team"
-                  class="w-full h-auto max-h-[min(420px,55vh)] object-cover scale-[1.02] hover:scale-100 transition-transform duration-[1.2s] ease-out"
-                />
-                <div
-                  class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent"
-                  aria-hidden="true"
-                ></div>
-              </div>
+                Sense
+              </h3>
+              <p class="text-sm sm:text-base text-white/65 leading-relaxed">
+                Track the water around the clock, so the system responds to the
+                tank's biology &mdash; not to a calendar reminder.
+              </p>
             </div>
-            <p
-              class="text-white/40 text-xs sm:text-sm mt-5 text-center tracking-wide"
-            >
-              Example imagery (AI-assisted)
-            </p>
+            <div class="ja-card p-7 sm:p-8">
+              <i
+                class="fas fa-filter ja-accent text-cyan-400 text-xl"
+                aria-hidden="true"
+              ></i>
+              <h3
+                class="heading-font text-xl sm:text-2xl font-semibold mt-5 mb-3 text-white"
+              >
+                Remove
+              </h3>
+              <p class="text-sm sm:text-base text-white/65 leading-relaxed">
+                Continuously extract the waste products conventional filters
+                leave behind &mdash; the entire reason water changes exist.
+              </p>
+            </div>
+            <div class="ja-card p-7 sm:p-8">
+              <i
+                class="fas fa-droplet ja-accent text-cyan-400 text-xl"
+                aria-hidden="true"
+              ></i>
+              <h3
+                class="heading-font text-xl sm:text-2xl font-semibold mt-5 mb-3 text-white"
+              >
+                Replenish
+              </h3>
+              <p class="text-sm sm:text-base text-white/65 leading-relaxed">
+                Restore the minerals a living tank consumes, keeping the water
+                stable indefinitely.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -1163,8 +1280,8 @@
                 <p
                   class="mt-10 md:mt-12 text-base sm:text-lg md:text-xl text-white/65 leading-relaxed max-w-xl mx-auto border-t border-white/10 pt-10"
                 >
-                  No weekly water changes. No filter cleaning. No worrying about
-                  fish health. The owners simply sit back and enjoy their aquariums.
+                  No weekly water changes. No filter cleaning. No worrying over
+                  chemistry. Owners simply sit back and enjoy the view.
                 </p>
               </div>
             </div>
@@ -1202,6 +1319,101 @@
           </div>
         </div>
       </section>
+
+      <section
+        id="join"
+        class="py-28 md:py-36 bg-gradient-to-b from-black via-zinc-950 to-black relative overflow-hidden"
+      >
+        <div
+          class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(255,255,255,0.05),transparent_55%)] opacity-80"
+          aria-hidden="true"
+        ></div>
+        <div class="max-w-5xl mx-auto px-6 sm:px-8 relative">
+          <div class="max-w-3xl mx-auto text-center">
+            <span
+              class="ja-accent text-cyan-400 text-xs sm:text-sm font-semibold tracking-[0.28em] uppercase"
+            >
+              Get involved
+            </span>
+            <h2
+              class="ja-section-title heading-font text-4xl sm:text-5xl md:text-[3.25rem] font-semibold mt-4 mb-7 md:mb-8 tracking-tight"
+            >
+              Build it. Or back it.
+            </h2>
+            <p
+              class="text-lg sm:text-xl text-white/70 mb-10 md:mb-12 leading-relaxed max-w-2xl mx-auto"
+            >
+              Nobody has shipped a truly maintenance-free aquarium at
+              production level. We intend to be the first &mdash; and we're
+              looking for the people and partners to do it with.
+            </p>
+            <div class="grid gap-5 md:grid-cols-2 text-left mb-12 md:mb-14">
+              <div class="ja-card p-7 sm:p-8">
+                <p
+                  class="ja-accent text-cyan-400 text-xs font-semibold tracking-[0.28em] uppercase mb-3"
+                >
+                  Join the team
+                </p>
+                <h3
+                  class="heading-font text-2xl font-semibold mb-2 text-white"
+                >
+                  Come build it
+                </h3>
+                <p class="text-white/65 text-sm sm:text-base leading-relaxed mb-5">
+                  Engineers, biologists, and builders who want a hard, tangible
+                  problem.
+                </p>
+                <a
+                  href="mailto:hiring@jintaeaquarium.com"
+                  class="ja-accent text-cyan-400 hover:text-cyan-300 font-medium underline underline-offset-4 decoration-cyan-400/35 hover:decoration-cyan-300/70 transition-colors break-all"
+                >
+                  hiring@jintaeaquarium.com
+                </a>
+              </div>
+              <div class="ja-card p-7 sm:p-8">
+                <p
+                  class="ja-accent text-cyan-400 text-xs font-semibold tracking-[0.28em] uppercase mb-3"
+                >
+                  Investors
+                </p>
+                <h3
+                  class="heading-font text-2xl font-semibold mb-2 text-white"
+                >
+                  Back the mission
+                </h3>
+                <p class="text-white/65 text-sm sm:text-base leading-relaxed mb-5">
+                  Ask us for the deck, the roadmap, and a look at where the
+                  prototype stands.
+                </p>
+                <a
+                  href="mailto:invest@jintaeaquarium.com"
+                  class="ja-accent text-cyan-400 hover:text-cyan-300 font-medium underline underline-offset-4 decoration-cyan-400/35 hover:decoration-cyan-300/70 transition-colors break-all"
+                >
+                  invest@jintaeaquarium.com
+                </a>
+              </div>
+            </div>
+            <div class="ja-media-frame mb-4">
+              <div class="ja-media-inner relative">
+                <img
+                  src="c4f42e64-34b3-4b39-ad38-02e6ea83cd8a.jpg"
+                  alt="Join the Jintae Aquarium Team"
+                  class="w-full h-auto max-h-[min(420px,55vh)] object-cover scale-[1.02] hover:scale-100 transition-transform duration-[1.2s] ease-out"
+                />
+                <div
+                  class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent"
+                  aria-hidden="true"
+                ></div>
+              </div>
+            </div>
+            <p
+              class="text-white/40 text-xs sm:text-sm mt-5 text-center tracking-wide"
+            >
+              Example imagery (AI-assisted)
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer
@@ -1220,6 +1432,9 @@
           >
             <span class="heading-font text-2xl md:text-3xl tracking-tight">
               Jintae Aquarium
+            </span>
+            <span class="text-white/40 text-xs sm:text-sm tracking-wide">
+              Making water changes obsolete.
             </span>
           </div>
           <div
